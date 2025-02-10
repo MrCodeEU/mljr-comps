@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+    --font-sans: Space Grotesk, serif;
+    --color-primary: oklch(50% 0.2 283.03);
+    --color-secondary: oklch(70.67% 0.15 183.96);
+    --color-tertiary: oklch(69.83% 0.18 27.07);
+    --color-text: oklch(27.55% 0.004 283.23);
+    --color-accent: oklch(62.81% 0.22 347.03);
+    --color-muted: oklch(69.95% 0.025 283.45);
+    --color-error: oklch(63.53% 0.19 27.07);
+    --color-success: oklch(66.08% 0.17 156.93);
+    --color-warning: oklch(78.47% 0.17 82.07);
+    --color-info: oklch(61.18% 0.16 257.21);
+    --clay-background: rgba(0, 0, 0, 0.005);
+    --clay-border-radius: 32px;
+    --clay-shadow-outset: 8px 8px 16px 0 rgba(0, 0, 0, 0.25);
+    --clay-shadow-inset-primary: -8px -8px 16px 0 rgba(0, 0, 0, 0.25);
+    --clay-shadow-inset-secondary: 8px 8px 16px 0 rgba(255, 255, 255, 0.2);
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+[data-theme="dark"] {
+    --color-primary: oklch(52.65% 0.171 283.03);
+    --color-secondary: oklch(70.67% 0.091 183.96);
+    --color-tertiary: oklch(69.83% 0.137 27.07);
+    --color-text: oklch(27.55% 0.004 283.23);
+    --color-accent: oklch(62.81% 0.186 347.03);
+    --color-muted: oklch(69.95% 0.025 283.45);
+    --color-error: oklch(63.53% 0.156 27.07);
+    --color-success: oklch(66.08% 0.115 156.93);
+    --color-warning: oklch(78.47% 0.115 82.07);
+    --color-info: oklch(61.18% 0.107 257.21);
+}
+
+@utility clay {
+    /* apply the shadow to make the element look like a clay element */
+    box-shadow: var(--clay-shadow-outset), inset var(--clay-shadow-inset-primary), inset var(--clay-shadow-inset-secondary);
+    border-radius: var(--clay-border-radius);
+}
+
+@utility clay-inset {
+    /* apply inverted shadows to create an inset clay effect */
+    box-shadow: inset var(--clay-shadow-outset), var(--clay-shadow-inset-primary), var(--clay-shadow-inset-secondary);
+    border-radius: var(--clay-border-radius);
+}

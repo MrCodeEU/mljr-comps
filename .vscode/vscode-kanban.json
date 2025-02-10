@@ -1,0 +1,614 @@
+{
+  "todo": [
+    {
+      "id": "initial-002",
+      "title": "Create Card Component",
+      "category": "Initial",
+      "priority": "1",
+      "tag": "#core",
+      "details": {
+        "content": "Implement a basic Card component with:\n- Header/Body/Footer sections\n- Hover effects\n- Border options\n- Shadow variants\n- Padding controls\n- Image support\n- Action buttons\n- Clickable variant",
+        "mime": "text/markdown"
+      }
+    },
+    {
+      "id": "advanced-012",
+      "title": "Implement 3D Animations",
+      "category": "Advanced Components",
+      "priority": "4",
+      "tag": "#advanced",
+      "details": {
+        "content": "Create 3D animation components using Three.js:\n- Card flip animations\n- 3D carousel\n- Cube transitions\n- Custom animation hooks\n- Performance optimization\n- Mobile support",
+        "mime": "text/markdown"
+      }
+    },
+    {
+      "id": "layout-006",
+      "title": "Implement Accordion component",
+      "category": "Layout Components",
+      "priority": "3",
+      "tag": "#layout",
+      "details": {
+        "content": "Build flexible accordion component:\n- Single/multiple panel open modes\n- Custom icons for expand/collapse\n- Animated transitions\n- Nested accordions support\n- Keyboard navigation\n- Custom header templates",
+        "mime": "text/markdown"
+      }
+    },
+    {
+      "id": "core-003",
+      "title": "Implement Alert component",
+      "category": "Core Components",
+      "priority": "2",
+      "tag": "#core",
+      "details": {
+        "content": "Create alert component with:\n- Multiple variants (success, error, warning, info)\n- Dismissible option\n- Auto-dismiss timer\n- Custom icons\n- Action buttons\n- Animation effects",
+        "mime": "text/markdown"
+      }
+    },
+    {
+      "id": "advanced-011",
+      "title": "Implement Audio Visualizer",
+      "category": "Advanced Components",
+      "priority": "4",
+      "tag": "#advanced"
+    },
+    {
+      "id": "advanced-005",
+      "title": "Implement Auto Complete",
+      "category": "Advanced Components",
+      "priority": "2",
+      "tag": "#advanced"
+    },
+    {
+      "id": "display-002",
+      "title": "Implement Avatar component",
+      "category": "Display Components",
+      "priority": "2",
+      "tag": "#display"
+    },
+    {
+      "id": "display-001",
+      "title": "Implement Badge component",
+      "category": "Display Components",
+      "priority": "2",
+      "tag": "#display"
+    },
+    {
+      "id": "content-001",
+      "title": "Implement Blog Post Card",
+      "category": "Content Components",
+      "priority": "2",
+      "tag": "#content"
+    },
+    {
+      "id": "nav-007",
+      "title": "Implement Breadcrumbs",
+      "category": "Navigation Components",
+      "priority": "4",
+      "tag": "#navigation"
+    },
+    {
+      "id": "layout-001",
+      "title": "Implement Card variations",
+      "category": "Layout Components",
+      "priority": "2",
+      "tag": "#layout"
+    },
+    {
+      "id": "display-007",
+      "title": "Implement Carousel",
+      "category": "Display Components",
+      "priority": "4",
+      "tag": "#display"
+    },
+    {
+      "id": "display-006",
+      "title": "Implement Chat Bubble",
+      "category": "Display Components",
+      "priority": "3",
+      "tag": "#display"
+    },
+    {
+      "id": "core-006",
+      "title": "Implement Checkbox component",
+      "category": "Core Components",
+      "priority": "3",
+      "tag": "#core"
+    },
+    {
+      "id": "layout-005",
+      "title": "Implement Collapse component",
+      "category": "Layout Components",
+      "priority": "3",
+      "tag": "#layout"
+    },
+    {
+      "id": "advanced-004",
+      "title": "Implement Color Picker",
+      "category": "Advanced Components",
+      "priority": "2",
+      "tag": "#advanced"
+    },
+    {
+      "id": "nav-002",
+      "title": "Implement Command Palette",
+      "category": "Navigation Components",
+      "priority": "2",
+      "tag": "#navigation"
+    },
+    {
+      "id": "content-002",
+      "title": "Implement Comment Section",
+      "category": "Content Components",
+      "priority": "2",
+      "tag": "#content"
+    },
+    {
+      "id": "feedback-002",
+      "title": "Implement Contact Form",
+      "category": "Feedback Components",
+      "priority": "2",
+      "tag": "#feedback"
+    },
+    {
+      "id": "prebuilt-004",
+      "title": "Implement Cookie consent",
+      "category": "Pre-built Components",
+      "priority": "3",
+      "tag": "#prebuilt"
+    },
+    {
+      "id": "utils-004",
+      "title": "Implement Copy to Clipboard",
+      "category": "Utility Components",
+      "priority": "3",
+      "tag": "#utils"
+    },
+    {
+      "id": "utils-003",
+      "title": "Implement Countdown timer",
+      "category": "Utility Components",
+      "priority": "3",
+      "tag": "#utils"
+    },
+    {
+      "id": "advanced-003",
+      "title": "Implement Date/Time Picker",
+      "category": "Advanced Components",
+      "priority": "2",
+      "tag": "#advanced"
+    },
+    {
+      "id": "display-010",
+      "title": "Implement Diff Viewer",
+      "category": "Display Components",
+      "priority": "4",
+      "tag": "#display"
+    },
+    {
+      "id": "layout-007",
+      "title": "Implement Divider component",
+      "category": "Layout Components",
+      "priority": "4",
+      "tag": "#layout"
+    },
+    {
+      "id": "nav-008",
+      "title": "Implement Dock",
+      "category": "Navigation Components",
+      "priority": "4",
+      "tag": "#navigation"
+    },
+    {
+      "id": "forms-007",
+      "title": "Implement Fieldset component",
+      "category": "Form Components",
+      "priority": "3",
+      "tag": "#forms"
+    },
+    {
+      "id": "forms-001",
+      "title": "Implement File upload",
+      "category": "Form Components",
+      "priority": "2",
+      "tag": "#forms"
+    },
+    {
+      "id": "layout-008",
+      "title": "Implement Footer component",
+      "category": "Layout Components",
+      "priority": "4",
+      "tag": "#layout"
+    },
+    {
+      "id": "core-002",
+      "title": "Implement Form wrapper with validation",
+      "category": "Core Components",
+      "priority": "2",
+      "tag": "#core"
+    },
+    {
+      "id": "layout-003",
+      "title": "Implement Grid system",
+      "category": "Layout Components",
+      "priority": "3",
+      "tag": "#layout"
+    },
+    {
+      "id": "layout-009",
+      "title": "Implement Hero Section",
+      "category": "Layout Components",
+      "priority": "4",
+      "tag": "#layout"
+    },
+    {
+      "id": "advanced-007",
+      "title": "Implement Image Compare",
+      "category": "Advanced Components",
+      "priority": "3",
+      "tag": "#advanced"
+    },
+    {
+      "id": "feedback-009",
+      "title": "Implement Indicator component",
+      "category": "Feedback Components",
+      "priority": "4",
+      "tag": "#feedback"
+    },
+    {
+      "id": "utils-008",
+      "title": "Implement Intersection Observer",
+      "category": "Utility Components",
+      "priority": "4",
+      "tag": "#utils"
+    },
+    {
+      "id": "utils-006",
+      "title": "Implement Kbd component",
+      "category": "Utility Components",
+      "priority": "4",
+      "tag": "#utils"
+    },
+    {
+      "id": "forms-006",
+      "title": "Implement Label component",
+      "category": "Form Components",
+      "priority": "3",
+      "tag": "#forms"
+    },
+    {
+      "id": "utils-005",
+      "title": "Implement Language Toggle",
+      "category": "Utility Components",
+      "priority": "3",
+      "tag": "#utils"
+    },
+    {
+      "id": "feedback-004",
+      "title": "Implement Loading states",
+      "category": "Feedback Components",
+      "priority": "3",
+      "tag": "#feedback"
+    },
+    {
+      "id": "prebuilt-001",
+      "title": "Implement Login form",
+      "category": "Pre-built Components",
+      "priority": "2",
+      "tag": "#prebuilt"
+    },
+    {
+      "id": "advanced-008",
+      "title": "Implement Map Integration",
+      "category": "Advanced Components",
+      "priority": "3",
+      "tag": "#advanced"
+    },
+    {
+      "id": "advanced-009",
+      "title": "Implement Marquee component",
+      "category": "Advanced Components",
+      "priority": "3",
+      "tag": "#advanced"
+    },
+    {
+      "id": "display-008",
+      "title": "Implement Mask component",
+      "category": "Display Components",
+      "priority": "4",
+      "tag": "#display"
+    },
+    {
+      "id": "content-003",
+      "title": "Implement Media Gallery",
+      "category": "Content Components",
+      "priority": "3",
+      "tag": "#content"
+    },
+    {
+      "id": "nav-003",
+      "title": "Implement Menu component",
+      "category": "Navigation Components",
+      "priority": "3",
+      "tag": "#navigation"
+    },
+    {
+      "id": "core-004",
+      "title": "Implement Modal component",
+      "category": "Core Components",
+      "priority": "2",
+      "tag": "#core"
+    },
+    {
+      "id": "nav-001",
+      "title": "Implement Navbar with mobile support",
+      "category": "Navigation Components",
+      "priority": "2",
+      "tag": "#navigation"
+    },
+    {
+      "id": "nav-005",
+      "title": "Implement Navigation Rail",
+      "category": "Navigation Components",
+      "priority": "3",
+      "tag": "#navigation"
+    },
+    {
+      "id": "nav-009",
+      "title": "Implement Pagination",
+      "category": "Navigation Components",
+      "priority": "3",
+      "tag": "#navigation"
+    },
+    {
+      "id": "prebuilt-003",
+      "title": "Implement Password Reset flow",
+      "category": "Pre-built Components",
+      "priority": "3",
+      "tag": "#prebuilt"
+    },
+    {
+      "id": "advanced-010",
+      "title": "Implement PDF Viewer",
+      "category": "Advanced Components",
+      "priority": "4",
+      "tag": "#advanced"
+    },
+    {
+      "id": "forms-003",
+      "title": "Implement Phone Number input",
+      "category": "Form Components",
+      "priority": "2",
+      "tag": "#forms"
+    },
+    {
+      "id": "layout-002",
+      "title": "Implement Popover component",
+      "category": "Layout Components",
+      "priority": "2",
+      "tag": "#layout"
+    },
+    {
+      "id": "feedback-003",
+      "title": "Implement Progress indicators",
+      "category": "Feedback Components",
+      "priority": "3",
+      "tag": "#feedback"
+    },
+    {
+      "id": "feedback-005",
+      "title": "Implement Radial Progress",
+      "category": "Feedback Components",
+      "priority": "3",
+      "tag": "#feedback"
+    },
+    {
+      "id": "core-007",
+      "title": "Implement Radio component",
+      "category": "Core Components",
+      "priority": "3",
+      "tag": "#core"
+    },
+    {
+      "id": "forms-004",
+      "title": "Implement Range slider",
+      "category": "Form Components",
+      "priority": "3",
+      "tag": "#forms"
+    },
+    {
+      "id": "forms-008",
+      "title": "Implement Rating input",
+      "category": "Form Components",
+      "priority": "4",
+      "tag": "#forms"
+    },
+    {
+      "id": "feedback-010",
+      "title": "Implement Rating Widget",
+      "category": "Feedback Components",
+      "priority": "4",
+      "tag": "#feedback"
+    },
+    {
+      "id": "prebuilt-002",
+      "title": "Implement Register form",
+      "category": "Pre-built Components",
+      "priority": "2",
+      "tag": "#prebuilt"
+    },
+    {
+      "id": "advanced-001",
+      "title": "Implement Rich Text Editor",
+      "category": "Advanced Components",
+      "priority": "1",
+      "tag": "#advanced"
+    },
+    {
+      "id": "core-005",
+      "title": "Implement Select component",
+      "category": "Core Components",
+      "priority": "3",
+      "tag": "#core"
+    },
+    {
+      "id": "feedback-008",
+      "title": "Implement Skeleton loading",
+      "category": "Feedback Components",
+      "priority": "4",
+      "tag": "#feedback"
+    },
+    {
+      "id": "layout-004",
+      "title": "Implement Stack component",
+      "category": "Layout Components",
+      "priority": "3",
+      "tag": "#layout"
+    },
+    {
+      "id": "feedback-006",
+      "title": "Implement Stat component",
+      "category": "Feedback Components",
+      "priority": "3",
+      "tag": "#feedback"
+    },
+    {
+      "id": "nav-006",
+      "title": "Implement Steps component",
+      "category": "Navigation Components",
+      "priority": "3",
+      "tag": "#navigation"
+    },
+    {
+      "id": "feedback-007",
+      "title": "Implement Survey Template",
+      "category": "Feedback Components",
+      "priority": "3",
+      "tag": "#feedback"
+    },
+    {
+      "id": "utils-007",
+      "title": "Implement Swap component",
+      "category": "Utility Components",
+      "priority": "4",
+      "tag": "#utils"
+    },
+    {
+      "id": "advanced-006",
+      "title": "Implement Table of Contents",
+      "category": "Advanced Components",
+      "priority": "3",
+      "tag": "#advanced"
+    },
+    {
+      "id": "display-003",
+      "title": "Implement Table with sorting",
+      "category": "Display Components",
+      "priority": "3",
+      "tag": "#display"
+    },
+    {
+      "id": "nav-004",
+      "title": "Implement Tabs component",
+      "category": "Navigation Components",
+      "priority": "3",
+      "tag": "#navigation"
+    },
+    {
+      "id": "display-009",
+      "title": "Implement Tags/Chips",
+      "category": "Display Components",
+      "priority": "4",
+      "tag": "#display"
+    },
+    {
+      "id": "core-001",
+      "title": "Implement Text Input component",
+      "category": "Core Components",
+      "priority": "2",
+      "tag": "#core"
+    },
+    {
+      "id": "forms-002",
+      "title": "Implement Textarea component",
+      "category": "Form Components",
+      "priority": "2",
+      "tag": "#forms"
+    },
+    {
+      "id": "utils-002",
+      "title": "Implement Theme Controller",
+      "category": "Utility Components",
+      "priority": "2",
+      "tag": "#utils"
+    },
+    {
+      "id": "display-004",
+      "title": "Implement Timeline component",
+      "category": "Display Components",
+      "priority": "3",
+      "tag": "#display"
+    },
+    {
+      "id": "feedback-001",
+      "title": "Implement Toast system",
+      "category": "Feedback Components",
+      "priority": "2",
+      "tag": "#feedback"
+    },
+    {
+      "id": "forms-005",
+      "title": "Implement Toggle switch",
+      "category": "Form Components",
+      "priority": "3",
+      "tag": "#forms"
+    },
+    {
+      "id": "utils-001",
+      "title": "Implement Tooltip component",
+      "category": "Utility Components",
+      "priority": "2",
+      "tag": "#utils"
+    },
+    {
+      "id": "display-005",
+      "title": "Implement Tree View",
+      "category": "Display Components",
+      "priority": "3",
+      "tag": "#display"
+    },
+    {
+      "id": "advanced-002",
+      "title": "Implement Video Player",
+      "category": "Advanced Components",
+      "priority": "2",
+      "tag": "#advanced"
+    },
+    {
+      "id": "initial-003",
+      "title": "Publish 0.0.1 to npm and test in project",
+      "category": "Initial",
+      "priority": "1",
+      "tag": "#release",
+      "details": {
+        "content": "Initial package publication:\n- Set up package.json\n- Configure TypeScript\n- Add documentation\n- Set up GitHub Actions\n- Publish to npm\n- Test in a separate project\n- Fix any integration issues",
+        "mime": "text/markdown"
+      }
+    }
+  ],
+  "in-progress": [
+    {
+      "id": "initial-001",
+      "title": "Create Button Component",
+      "category": "Initial",
+      "priority": "1",
+      "tag": "#core",
+      "details": {
+        "content": "Implement a flexible Button component with:\n- Primary, Secondary, and Ghost variants\n- Size variants (sm, md, lg)\n- Loading state\n- Disabled state\n- Icon support (left/right)\n- Full width option\n- Custom colors\n- Click handling",
+        "mime": "text/markdown"
+      },
+      "references": []
+    }
+  ],
+  "testing": [],
+  "done": []
+}
