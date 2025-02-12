@@ -8,7 +8,7 @@
 		children?: Snippet;
 	} = $props();
 </script>
-<div class={cn('flex flex-row text-xl font-bold')}>
+<div class={cn('flex flex-row text-2xl font-bold')}>
 	{@render children?.()}
 </div>    
 

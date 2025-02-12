@@ -10,16 +10,16 @@
 
     // Map variants to Tailwind classes
     const variantClasses = {
-        primary: "bg-primary text-primary-content",
-        secondary: "bg-secondary text-secondary-content",
-        tertiary: "bg-tertiary text-base-content",
-        text: "bg-transparent text-base-content hover:bg-base-200",
-        accent: "bg-accent text-accent-content",
-        muted: "bg-neutral text-neutral-content",
-        error: "bg-error text-error-content",
-        success: "bg-success text-success-content",
-        warning: "bg-warning text-warning-content",
-        info: "bg-info text-info-content"
+        primary: "bg-primary text-black",
+        secondary: "bg-secondary text-black",
+        tertiary: "bg-tertiary text-black",
+        text: "bg-transparent text-black",
+        accent: "bg-accent text-black",
+        muted: "bg-neutral text-black",
+        error: "bg-error text-black",
+        success: "bg-success text-black",
+        warning: "bg-warning text-black",
+        info: "bg-info text-black"
     };
 </script>
 

@@ -1,8 +1,15 @@
 <script lang="ts">
 	import Button from "$lib/Button.svelte";
 	import { Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "$lib/index.js";
+	import ThemeToggle from "$lib/ThemeToggle.svelte";
 	import Icon from "@iconify/svelte";
+
+	let theme = $state(false);
 </script>
+
+<div class="absolute top-4 right-4 z-10">
+	<ThemeToggle  />
+</div>
 
 <div data-theme="light" class="flex items-center justify-center min-h-screen bg-gray-200 dark:bg-blue-950 p-4">
 	<Card>
