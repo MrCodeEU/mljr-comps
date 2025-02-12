@@ -1,12 +1,13 @@
 {
 	"name": "mljr-comps",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
-		"prepack": "svelte-kit sync && svelte-package && publint",
+		"prepack": "svelte-kit sync && svelte-package && bun run copy-css && publint",
+		"copy-css": "node -e \"require('fs').copyFileSync('src/app.css', 'dist/app.css')\"",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
@@ -15,7 +16,8 @@
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"dist/app.css"
 	],
 	"sideEffects": [
 		"**/*.css"
@@ -27,7 +29,8 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"svelte": "./dist/index.js"
-		}
+		},
+		"./styles": "./dist/app.css"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
@@ -44,7 +47,6 @@
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.14.0",
-		"lucide-svelte": "^0.475.0",
 		"prettier": "^3.5.0",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
@@ -57,6 +59,8 @@
 		"vite": "^6.1.0"
 	},
 	"dependencies": {
+		"@iconify/json": "^2.2.305",
+		"@iconify/svelte": "^4.2.0",
 		"@inlang/paraglide-sveltekit": "^0.15.5"
 	}
 }
