@@ -25,31 +25,31 @@
         <CardBody>
             <Tab value="input" class="w-full">
                 {#snippet triggers()}
-                    <TabTrigger value="input">Input & Form</TabTrigger>
-                    <TabTrigger value="navigation">Navigation & Menus</TabTrigger>
-                    <TabTrigger value="display">Display & Feedback</TabTrigger>
-                    <TabTrigger value="layout">Layout & Structure</TabTrigger>
-                    <TabTrigger value="overlay">Overlay & Popups</TabTrigger>
+                    <TabTrigger value="input" variant="primary">Input & Form</TabTrigger>
+                    <TabTrigger value="navigation" variant="accent">Navigation & Menus</TabTrigger>
+                    <TabTrigger value="display" variant="error">Display & Feedback</TabTrigger>
+                    <TabTrigger value="layout" variant="info">Layout & Structure</TabTrigger>
+                    <TabTrigger value="overlay"variant="secondary">Overlay & Popups</TabTrigger>
                 {/snippet}
 
                 {#snippet content()}
-                    <TabContent value="input">
+                    <TabContent value="input" class="bg-primary/20">
                         <InputExamples/>
                     </TabContent>
 
-                    <TabContent value="navigation">
+                    <TabContent value="navigation" class="bg-accent/20">
                         <NavigationExamples/>
                     </TabContent>
 
-                    <TabContent value="display">
+                    <TabContent value="display" class="bg-error/20">
                         <DisplayExamples/>
                     </TabContent>
 
-                    <TabContent value="layout">
+                    <TabContent value="layout" class="bg-info/20">
                         <LayoutExamples/>
                     </TabContent>
 
-                    <TabContent value="overlay">
+                    <TabContent value="overlay" class="bg-secondary/20">
                         <OverlayExamples/>
                     </TabContent>
                 {/snippet}

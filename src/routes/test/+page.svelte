@@ -13,7 +13,7 @@
     <div class="w-full max-w-3xl space-y-8">
         <Tab value="tab1" class="w-full">
             {#snippet triggers()}
-                <TabTrigger value="tab1" variant="primary">Primary Tab</TabTrigger>
+                <TabTrigger value="tab1" variant="error">Primary Tab</TabTrigger>
                 <TabTrigger value="tab2" variant="secondary">Secondary Tab</TabTrigger>
                 <TabTrigger value="tab3" variant="accent">Accent Tab</TabTrigger>
                 <TabTrigger value="tab4" variant="error">Error Tab</TabTrigger>
