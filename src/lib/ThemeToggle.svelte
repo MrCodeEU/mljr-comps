@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Toggle } from "$lib/index.js";
 
-    let { leftLabel, rightLabel } : {leftLabel: string, rightLabel: string} = $props();
+    let { leftLabel, rightLabel } : {leftLabel?: string, rightLabel?: string} = $props();
 
     let theme = $state(false);
 
@@ -18,9 +18,9 @@ leftIcon="ph:sun-bold"
 rightIcon="ph:moon-bold"
 >
 {#snippet leftLabel()}
-{leftLabel}
+<p>{leftLabel}</p>
 {/snippet}
 {#snippet rightLabel()}
-{rightLabel}
+<p>{rightLabel}</p>
 {/snippet}
 </Toggle>
