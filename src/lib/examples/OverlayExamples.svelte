@@ -2,6 +2,7 @@
     import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '$lib/index.js';
     import { AlertDialog } from '$lib/alert-dialog/index.js';
     import Masonry from '$lib/Masonry.svelte';
+    import AspectRatio from '$lib/AspectRatio.svelte';
 
     async function handleDelete() {
         // Simulate async operation

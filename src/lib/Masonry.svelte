@@ -1,125 +1,147 @@
 <script lang="ts">
-  import { onMount, onDestroy, tick, type Snippet } from 'svelte';
+	import { onMount, tick, type Snippet } from 'svelte';
 
-  type Grid = {
-    _el: HTMLElement;
-    gap: number;
-    items: HTMLElement[];
-    ncol: number;
-    mod: number;
-  }
+	let {
+		stretchFirst = false,
+		gridGap = '0.5em',
+		padding = '0px',
+		colWidth = 'minmax(Min(20em, 100%), 1fr)',
+		items = [],
+		reset = false,
+		children
+	} = $props();
 
-  let { 
-    stretchFirst = false,
-    gridGap = '0.5em',
-    padding = '0px',
-    colWidth = 'minmax(Min(20em, 100%), 1fr)',
-    items = [],
-    reset = false,
-    children
-  } : {
-    stretchFirst?: boolean;
-    gridGap?: string;
-    padding?: string;
-    colWidth?: string;
-    items?: any[];
-    reset?: boolean;
-    children?: Snippet;
-  } = $props();
+	let masonryElement: HTMLElement;
+	let resizeObserver: ResizeObserver;
 
-  let grids = $state<Grid[]>([]);
-  let masonryElement: HTMLElement;
-  let isBrowser = $state(typeof window !== 'undefined');
+	const refreshLayout = async () => {
+		if (!masonryElement) return;
 
-  const refreshLayout = async () => {
-    if (!isBrowser) return;
-    grids.forEach(async grid => {
-      let ncol = getComputedStyle(grid._el).gridTemplateColumns.split(' ').length;
-      
-      grid.items.forEach(c => {
-        let new_h = c.getBoundingClientRect().height;
-        if(new_h !== +c.dataset.h!) {
-          c.dataset.h = new_h.toString();
-          grid.mod++;
-        }
-      });
-      
-      if(grid.ncol !== ncol || grid.mod) {
-        grid.ncol = ncol;
-        grid.items.forEach(c => c.style.removeProperty('margin-top'));
-        if(grid.ncol > 1) {
-          grid.items.slice(ncol).forEach((c, i) => {
-            let prev_fin = grid.items[i].getBoundingClientRect().bottom,
-                curr_ini = c.getBoundingClientRect().top;
-            c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
-          });
-        }
-        grid.mod = 0;
-      }
-    });
-  }
+		const grid = {
+			_el: masonryElement,
+			gap: parseFloat(getComputedStyle(masonryElement).gridRowGap),
+			items: [...masonryElement.childNodes].filter(
+				(c) => c.nodeType === 1 && +getComputedStyle(c as HTMLElement).gridColumnEnd !== -1
+			) as HTMLElement[],
+			ncol: getComputedStyle(masonryElement).gridTemplateColumns.split(' ').length,
+			mod: 0
+		};
 
-  const calcGrid = async (_masonryArr: HTMLElement[]) => {
-    if (!isBrowser) return;
-    await tick();
-    if(_masonryArr.length && getComputedStyle(_masonryArr[0]).gridTemplateRows !== 'masonry') {
-      grids = _masonryArr.map(grid => ({
-        _el: grid,
-        gap: parseFloat(getComputedStyle(grid).gridRowGap),
-        items: [...grid.childNodes].filter(c => 
-          c.nodeType === 1 && +getComputedStyle(c as HTMLElement).gridColumnEnd !== -1
-        ) as HTMLElement[],
-        ncol: 0,
-        mod: 0
-      }));
-      refreshLayout();
-    }
-  }
+		// Track height changes
+		grid.items.forEach((c) => {
+			let new_h = c.getBoundingClientRect().height;
+			if (new_h !== +c.dataset.h!) {
+				c.dataset.h = new_h.toString();
+				grid.mod++;
+			}
+		});
 
-  $effect(() => {
-    if (masonryElement && isBrowser) {
-      calcGrid([masonryElement]);
-    }
-  });
+		// Only update if columns changed or heights modified
+		if (grid.ncol !== grid.ncol || grid.mod) {
+			// Reset all margins
+			grid.items.forEach((c) => c.style.removeProperty('margin-top'));
 
-  $effect(() => {
-    if ((items || reset) && isBrowser) {
-      masonryElement = masonryElement;
-    }
-  });
+			// Skip if single column
+			if (grid.ncol > 1) {
+				grid.items.slice(grid.ncol).forEach((c, i) => {
+					let prev_fin = grid.items[i].getBoundingClientRect().bottom;
+					let curr_ini = c.getBoundingClientRect().top;
+					c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
+				});
+			}
 
-  onMount(() => {
-    if (isBrowser) {
-      const handleResize = () => refreshLayout();
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  });
+			grid.mod = 0;
+		}
+	};
+
+	const debouncedRefresh = (() => {
+		let frame: number;
+		return () => {
+			cancelAnimationFrame(frame);
+			frame = requestAnimationFrame(refreshLayout);
+		};
+	})();
+
+	onMount(() => {
+		if (!masonryElement) return;
+
+		// Only apply JS layout if native masonry not supported
+		if (getComputedStyle(masonryElement).gridTemplateRows !== 'masonry') {
+			resizeObserver = new ResizeObserver(debouncedRefresh);
+
+			// Observe the container
+			resizeObserver.observe(masonryElement);
+
+			// Observe all children
+			Array.from(masonryElement.children).forEach((child) => {
+				resizeObserver.observe(child);
+			});
+
+			// Initial layout
+			refreshLayout();
+		}
+
+		return () => resizeObserver?.disconnect();
+	});
+
+	// Add a function to update observers when children change
+	const updateObservers = () => {
+		if (resizeObserver && masonryElement) {
+			// Disconnect all existing observations
+			resizeObserver.disconnect();
+
+			// Reconnect to container and all current children
+			resizeObserver.observe(masonryElement);
+			Array.from(masonryElement.children).forEach((child) => {
+				resizeObserver.observe(child);
+			});
+		}
+	};
+
+	// Watch for DOM changes to add/remove observers as needed
+	onMount(() => {
+		if (!masonryElement) return;
+
+		const observer = new MutationObserver(updateObservers);
+		observer.observe(masonryElement, { childList: true });
+
+		return () => observer.disconnect();
+	});
+
+	$effect(() => {
+		if (items.length || reset) {
+			tick().then(refreshLayout);
+		}
+	});
 </script>
 
-<div bind:this={masonryElement} 
-     class={`__grid--masonry ${stretchFirst ? '__stretch-first' : ''}`}
-     style={`
-      --masonry-grid-gap: ${gridGap}; 
-      --masonry-padding: ${padding};
-      --masonry-col-width: ${colWidth};
-     `}
-     >
-     {@render children?.()}
+<div
+	bind:this={masonryElement}
+	class={`grid--masonry ${stretchFirst ? '__stretch-first' : ''}`}
+	style={`
+    --masonry-grid-gap: ${gridGap}; 
+    --masonry-padding: ${padding};
+    --masonry-col-width: ${colWidth};
+  `}
+>
+	{@render children?.()}
 </div>
 
 <style>
-  :global(.__grid--masonry) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, var(--masonry-col-width));
-    justify-content: center;
-    grid-gap: var(--masonry-grid-gap);
-    padding: var(--masonry-padding);
-  }
-  :global(.__grid--masonry > *) {
-    align-self: start;
-  }
-  :global(.__grid--masonry.__stretch-first > *:first-child) {
-    grid-column: 1/ -1;
-  }
+	.grid--masonry {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, var(--masonry-col-width));
+		grid-template-rows: masonry; /* For native support */
+		justify-content: center;
+		grid-gap: var(--masonry-grid-gap);
+		padding: var(--masonry-padding);
+	}
+
+	:global(.grid--masonry > *) {
+		align-self: start;
+	}
+
+	:global(.grid--masonry.__stretch-first > *:first-child) {
+		grid-column: 1/ -1;
+	}
 </style>
