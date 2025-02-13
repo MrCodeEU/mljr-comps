@@ -16,7 +16,7 @@
 <div class="absolute top-4 right-4 z-10">
     <ThemeToggle leftLabel="Light Mode" rightLabel="Dark Mode" />
 </div>
-<div class="flex min-h-screen items-center justify-center bg-gray-200 p-4 dark:bg-blue-950 pt-16">
+<div class="flex min-h-screen items-center justify-center pt-16">
     <Card class="w-[90%]">
         <CardHeader>
             <CardTitle class="text-center text-3xl font-bold">MLJR Components in Claymorphism</CardTitle>

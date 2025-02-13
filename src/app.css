@@ -18,6 +18,7 @@
     --clay-shadow-outset: 8px 8px 16px 0 rgba(0, 0, 0, 0.25);
     --clay-shadow-inset-primary: -8px -8px 16px 0 rgba(0, 0, 0, 0.25);
     --clay-shadow-inset-secondary: 8px 8px 16px 0 rgba(255, 255, 255, 0.2);
+    --color-text: #000;
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -33,8 +34,8 @@
     --color-success: oklch(66.08% 0.115 156.93);
     --color-warning: oklch(78.47% 0.115 82.07);
     --color-info: oklch(61.18% 0.107 257.21);
-    --color-background: oklch(12.96% 0.05 319.94);
-    @apply text-white
+    --color-background: oklch(15% 0.15 290);
+    --color-text: #fff;
 }
 
 @utility clay {
@@ -47,4 +48,8 @@
     /* apply inverted shadows to create an inset clay effect */
     box-shadow: inset var(--clay-shadow-outset), var(--clay-shadow-inset-primary), var(--clay-shadow-inset-secondary);
     border-radius: var(--clay-border-radius);
+}
+
+body{
+    @apply bg-background text-text font-sans;
 }

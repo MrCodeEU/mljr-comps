@@ -23,7 +23,7 @@
         success: "bg-success text-black",
         warning: "bg-warning text-black",
         info: "bg-info text-black",
-		default: "bg-white text-black"
+		default: "bg-background text-black dark:text-white"
     };
 </script>
 

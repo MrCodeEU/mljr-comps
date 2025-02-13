@@ -18,7 +18,7 @@
         tertiary: "bg-tertiary text-black",
         text: "bg-transparent text-black",
         accent: "bg-accent text-black",
-        muted: "bg-neutral text-black",
+        muted: "bg-neutral text-black dark:text-white",
         error: "bg-error text-black",
         success: "bg-success text-black",
         warning: "bg-warning text-black",
