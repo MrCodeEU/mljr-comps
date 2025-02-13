@@ -3,12 +3,14 @@
 	import { cn } from '$lib/utility.js';
 
 	let {
-		children
+		children,
+		class: className = ''
 	}: {
 		children?: Snippet;
+		class?: string;
 	} = $props();
 </script>
 
-<div class={cn('flex flex-row text-sm text-gray-600 dark:text-gray-400')}>
+<div class={cn('flex flex-row text-sm text-gray-600 dark:text-gray-400', className)}>
 	{@render children?.()}
 </div>
