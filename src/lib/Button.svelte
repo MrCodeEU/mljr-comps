@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Button } from 'bits-ui';
     import type { Snippet } from 'svelte';
     import { cn } from '$lib/utility.js';
 
@@ -24,13 +25,17 @@
         info: "bg-info text-black"
     };
 </script>
-<button class={cn(
-    "clay flex p-3 active:clay-inset hover:shadow-none transition-shadow hover:translate-y-0.5 active:translate-x-0.5",
-    variantClasses[variant],
-        className,
-    active ? "active:shadow-none" : "active:shadow-none",
-)}
-onclick={onclick}
+<Button.Root
+    class={cn(
+        "clay flex p-3 transition-all hover:translate-y-0.5 active:translate-y-0.5",
+        "flex flex-row items-center justify-center",
+        active ? "cursor-pointer" : "cursor-not-allowed",
+        active ? "active:clay-inset hover:shadow-none" : "active:clay",
+        variantClasses[variant],
+        className
+    )}
+    onclick={onclick}
+    disabled={!active}
 >
     {@render children?.()}
-</button>
+</Button.Root>
