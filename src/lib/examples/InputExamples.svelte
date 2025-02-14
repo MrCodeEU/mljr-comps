@@ -3,6 +3,7 @@
     import Masonry from '$lib/Masonry.svelte';
     import Button from '$lib/Button.svelte';
     import Icon from '@iconify/svelte';
+    import { Checkbox, CheckboxLabel, CheckboxGroup } from '$lib/index.js';
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Input & Form Components</h3>
@@ -107,9 +108,91 @@
     <Card>
         <CardHeader>
             <CardTitle>Checkbox</CardTitle>
-            <CardDescription>Interactive checkbox selection control</CardDescription>
+            <CardDescription>Interactive checkbox selection control with claymorphic design</CardDescription>
         </CardHeader>
-        <CardBody>Coming soon...</CardBody>
+        <CardBody class="space-y-8">
+            <!-- Variant Examples -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Variants</h4>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="primary" />
+                        <CheckboxLabel>Primary</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="secondary" />
+                        <CheckboxLabel>Secondary</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="tertiary" />
+                        <CheckboxLabel>Tertiary</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="accent" />
+                        <CheckboxLabel>Accent</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="muted" />
+                        <CheckboxLabel>Muted</CheckboxLabel>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State Examples -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">States</h4>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2">
+                        <Checkbox disabled checked />
+                        <CheckboxLabel>Disabled</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="error" checked />
+                        <CheckboxLabel>Error</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="success" checked />
+                        <CheckboxLabel>Success</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="warning" checked />
+                        <CheckboxLabel>Warning</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox variant="info" checked />
+                        <CheckboxLabel>Info</CheckboxLabel>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group Example -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Checkbox Group</h4>
+                <CheckboxGroup name="preferences" class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <Checkbox value="emails" variant="primary" />
+                        <CheckboxLabel>Receive emails</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox value="updates" variant="secondary" />
+                        <CheckboxLabel>Get updates</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox value="offers" variant="accent" />
+                        <CheckboxLabel>Special offers</CheckboxLabel>
+                    </div>
+                </CheckboxGroup>
+            </div>
+
+            <!-- Indeterminate Example -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Indeterminate State</h4>
+                <div class="flex items-center gap-2">
+                    <Checkbox indeterminate variant="primary" />
+                    <CheckboxLabel>Mixed selection</CheckboxLabel>
+                </div>
+            </div>
+        </CardBody>
     </Card>
 
     <Card>
