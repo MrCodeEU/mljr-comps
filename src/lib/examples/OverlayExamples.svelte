@@ -3,12 +3,27 @@
     import { AlertDialog } from '$lib/alert-dialog/index.js';
     import Masonry from '$lib/Masonry.svelte';
     import AspectRatio from '$lib/AspectRatio.svelte';
+    import ComboBox from '$lib/ComboBox.svelte';
 
     async function handleDelete() {
         // Simulate async operation
         await new Promise(resolve => setTimeout(resolve, 1000));
         alert('Account deleted successfully!');
     }
+
+    // Add ComboBox demo data
+    const technologies = [
+        { value: "svelte", label: "Svelte", icon: "logos:svelte-icon" },
+        { value: "react", label: "React", icon: "logos:react" },
+        { value: "vue", label: "Vue", icon: "logos:vue" },
+        { value: "angular", label: "Angular", icon: "logos:angular-icon" },
+        { value: "solid", label: "SolidJS", icon: "logos:solidjs-icon" },
+        { value: "astro", label: "Astro", icon: "logos:astro-icon" },
+        { value: "nextjs", label: "Next.js", icon: "logos:nextjs-icon" },
+        { value: "nuxt", label: "Nuxt", icon: "logos:nuxt-icon" }
+    ];
+
+    let selectedTech = $state("");
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Overlay & Popup Components</h3>
@@ -107,16 +122,41 @@
 
     <Card>
         <CardHeader>
-            <CardTitle>Calendar</CardTitle>
-            <CardDescription>Date selection calendar</CardDescription>
+            <CardTitle>Combobox</CardTitle>
+            <CardDescription>Searchable dropdown selection</CardDescription>
         </CardHeader>
-        <CardBody>Coming soon...</CardBody>
+        <CardBody>
+            <div class="flex flex-col gap-4">
+                <ComboBox
+                    items={technologies}
+                    placeholder="Select a framework..."
+                    icon="mdi:web"
+                    variant="primary"
+                    type="single"
+                />
+
+                <ComboBox
+                    items={technologies}
+                    variant="accent"
+                    placeholder="No icon version"
+                    type="multiple"
+                />
+
+                <ComboBox
+                    items={technologies}
+                    variant="info"
+                    icon="mdi:information"
+                    placeholder="Info variant..."
+                    type="single"
+                />
+            </div>
+        </CardBody>
     </Card>
 
     <Card>
         <CardHeader>
-            <CardTitle>Combobox</CardTitle>
-            <CardDescription>Searchable dropdown selection</CardDescription>
+            <CardTitle>Calendar</CardTitle>
+            <CardDescription>Date selection calendar</CardDescription>
         </CardHeader>
         <CardBody>Coming soon...</CardBody>
     </Card>
