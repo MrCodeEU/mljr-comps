@@ -192,6 +192,47 @@
                     <CheckboxLabel>Mixed selection</CheckboxLabel>
                 </div>
             </div>
+
+            <!-- Custom Icons Example -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Custom Icons</h4>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center gap-2">
+                        <Checkbox 
+                            checkedIcon="mdi:heart"
+                            uncheckedIcon="mdi:heart-outline"
+                            variant="accent"
+                        />
+                        <CheckboxLabel>Heart Icons</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox 
+                            checkedIcon="material-symbols:star-rounded"
+                            uncheckedIcon="material-symbols:star-outline-rounded"
+                            variant="warning"
+                        />
+                        <CheckboxLabel>Star Rating</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox 
+                            checkedIcon="mdi:bookmark-check"
+                            uncheckedIcon="mdi:bookmark-outline"
+                            indeterminateIcon="mdi:bookmark-minus"
+                            variant="primary"
+                        />
+                        <CheckboxLabel>Bookmark</CheckboxLabel>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <Checkbox 
+                            checkedIcon="mdi:thumb-up"
+                            uncheckedIcon="mdi:thumb-up-outline"
+                            variant="success"
+                            iconClass="h-6 w-6"
+                        />
+                        <CheckboxLabel>Like</CheckboxLabel>
+                    </div>
+                </div>
+            </div>
         </CardBody>
     </Card>
 

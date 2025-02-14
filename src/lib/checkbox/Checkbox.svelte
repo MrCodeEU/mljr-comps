@@ -12,6 +12,10 @@
         name,
         value,
         variant = "primary",
+        checkedIcon = "material-symbols:check",
+        uncheckedIcon = "",
+        indeterminateIcon = "ic:baseline-minus",
+        iconClass = "h-5 w-5",
         class: className = "",
         children
     } : {
@@ -22,6 +26,10 @@
         name?: string;
         value?: string;
         variant?: "primary" | "secondary" | "tertiary" | "accent" | "muted" | "error" | "success" | "warning" | "info";
+        checkedIcon?: string;
+        uncheckedIcon?: string;
+        indeterminateIcon?: string;
+        iconClass?: string;
         class?: string;
         children?: Snippet;
     } = $props();
@@ -58,10 +66,12 @@
 >
     {#snippet children({ checked, indeterminate })}
         <div class="text-current">
-            {#if indeterminate}
-                <Icon icon="ic:baseline-minus" class="h-5 w-5" />
-            {:else if checked}
-                <Icon icon="material-symbols:check" class="h-5 w-5" />
+            {#if indeterminate && indeterminateIcon}
+                <Icon icon={indeterminateIcon} class={iconClass} />
+            {:else if checked && checkedIcon}
+                <Icon icon={checkedIcon} class={iconClass} />
+            {:else if uncheckedIcon}
+                <Icon icon={uncheckedIcon} class={iconClass} />
             {/if}
         </div>
     {/snippet}
