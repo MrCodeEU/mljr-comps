@@ -5,4 +5,4 @@
 	let { class: className = '' } = $props<{ class?: string }>();
 </script>
 
-<DropdownMenu.Separator class={cn('bg-base-content/20 my-1.5 h-px', className)} />
+<DropdownMenu.Separator class={cn('bg-text my-1.5 h-px', className)} />
