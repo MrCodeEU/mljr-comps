@@ -1,10 +1,9 @@
 <script lang="ts">
     import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '$lib/index.js';
     import { AlertDialog } from '$lib/alert-dialog/index.js';
-    import { Dialog } from '$lib/dialog/index.js';
     import Masonry from '$lib/Masonry.svelte';
-    import AspectRatio from '$lib/AspectRatio.svelte';
     import ComboBox from '$lib/ComboBox.svelte';
+    import { Dialog, DialogContent, DialogFooter, DialogTitle, DialogDescription, DialogClose } from '$lib/dialog/index.js';
 
     async function handleDelete() {
         // Simulate async operation
@@ -156,77 +155,50 @@
 
     <Card>
         <CardHeader>
-            <CardTitle>Calendar</CardTitle>
-            <CardDescription>Date selection calendar</CardDescription>
-        </CardHeader>
-        <CardBody>Coming soon...</CardBody>
-    </Card>
-
-    <Card>
-        <CardHeader>
-            <CardTitle>Date Picker</CardTitle>
-            <CardDescription>Date selection dialog</CardDescription>
-        </CardHeader>
-        <CardBody>Coming soon...</CardBody>
-    </Card>
-
-    <Card>
-        <CardHeader>
-            <CardTitle>Date Range Picker</CardTitle>
-            <CardDescription>Date range selection dialog</CardDescription>
-        </CardHeader>
-        <CardBody>Coming soon...</CardBody>
-    </Card>
-
-    <Card>
-        <CardHeader>
             <CardTitle>Dialog</CardTitle>
             <CardDescription>Modal dialog component</CardDescription>
         </CardHeader>
         <CardBody>
             <div class="flex flex-col gap-4">
-                <Dialog 
-                    variant="primary" 
-                    triggerText="Basic Dialog"
-                    cardVariant="default"
-                >
-                    {#snippet title()}
-                        Basic Dialog
-                    {/snippet}
-                    {#snippet description()}
-                        This is a basic dialog with default styling.
-                        It demonstrates the standard dialog pattern.
-                    {/snippet}
+                <!-- Basic Dialog -->
+                <Dialog variant="primary" triggerText="Basic Dialog">
+                    <DialogContent>
+                        <DialogTitle>Basic Dialog</DialogTitle>
+                        <DialogDescription>
+                            This is a basic dialog with a title and description.
+                        </DialogDescription>
+                        <DialogFooter>
+                            <DialogClose variant="secondary">Close</DialogClose>
+                        </DialogFooter>
+                    </DialogContent>
                 </Dialog>
 
-                <Dialog 
-                    variant="accent"
-                    triggerText="Accent Dialog"
-                    cardVariant="accent"
-                    closeVariant="primary"
-                >
-                    {#snippet title()}
-                        Accent Dialog
-                    {/snippet}
-                    {#snippet description()}
-                        This dialog uses the accent color scheme with
-                        a primary colored close button.
-                    {/snippet}
+                <!-- Custom Content Dialog -->
+                <Dialog variant="accent" triggerText="Custom Content">
+                    <DialogContent>
+                        <DialogTitle>Custom Form</DialogTitle>
+                        <form class="space-y-4">
+                            <input type="text" placeholder="Name" class="w-full p-2 rounded border" />
+                            <textarea placeholder="Message" class="w-full p-2 rounded border" ></textarea>
+                        </form>
+                        <DialogFooter>
+                            <DialogClose variant="error">Cancel</DialogClose>
+                            <DialogClose variant="success">Submit</DialogClose>
+                        </DialogFooter>
+                    </DialogContent>
                 </Dialog>
 
-                <Dialog 
-                    variant="info"
-                    triggerText="No Close Button"
-                    cardVariant="info"
-                    showClose={false}
-                >
-                    {#snippet title()}
-                        Information Only
-                    {/snippet}
-                    {#snippet description()}
-                        This dialog has no close button.
-                        Click outside to close.
-                    {/snippet}
+                <!-- Large Dialog -->
+                <Dialog variant="info" triggerText="Large Dialog">
+                    <DialogContent class="max-w-2xl">
+                        <DialogTitle>Terms of Service</DialogTitle>
+                        <div class="my-4 max-h-[60vh] overflow-auto">
+                            <p>Lorem ipsum dolor sit amet...</p>
+                        </div>
+                        <DialogFooter>
+                            <DialogClose variant="primary">Accept</DialogClose>
+                        </DialogFooter>
+                    </DialogContent>
                 </Dialog>
             </div>
         </CardBody>
@@ -236,14 +208,6 @@
         <CardHeader>
             <CardTitle>Popover</CardTitle>
             <CardDescription>Floating content overlay</CardDescription>
-        </CardHeader>
-        <CardBody>Coming soon...</CardBody>
-    </Card>
-
-    <Card>
-        <CardHeader>
-            <CardTitle>Range Calendar</CardTitle>
-            <CardDescription>Date range calendar component</CardDescription>
         </CardHeader>
         <CardBody>Coming soon...</CardBody>
     </Card>

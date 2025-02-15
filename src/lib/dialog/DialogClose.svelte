@@ -2,12 +2,12 @@
     import { Dialog } from "bits-ui";
     import { cn } from "$lib/utility.js";
     import type { Snippet } from "svelte";
-
-    let { variant = "primary", class: className = "", children } : {
+    
+    let { variant = "secondary", class: className = "", children } = $props<{
         variant?: "primary" | "secondary" | "tertiary" | "accent" | "muted" | "error" | "success" | "warning" | "info";
         class?: string;
         children?: Snippet;
-    } = $props();
+    }>();
 
     const variantClasses = {
         primary: "bg-primary text-black",
@@ -22,13 +22,11 @@
     };
 </script>
 
-<Dialog.Trigger
-    class={cn(
-        "clay hover:shadow-none transition-all active:clay-inset",
-        "px-4 py-2",
-        variantClasses[variant],
-        className
-    )}
->
+<Dialog.Close class={cn(
+    "clay rounded-xl px-4 py-2 transition-all",
+    "hover:translate-y-0.5 hover:shadow-none active:clay-inset",
+    variantClasses[variant as keyof typeof variantClasses],
+    className
+)}>
     {@render children?.()}
-</Dialog.Trigger>
+</Dialog.Close>
