@@ -56,6 +56,22 @@
         onOpenChange?.(isOpen);
     });
 
+    function handleOpenChange(o: boolean) {
+        isOpen = o;
+        if (o) {
+            // Capture current scroll position
+            const currentScroll = window.scrollY;
+            // Wait for the calendar to render and any automatic scrolling to occur
+            setTimeout(() => {
+                window.scrollTo({
+                    top: currentScroll,
+                    behavior: 'instant' // Use instant instead of auto
+                });
+            }, 100); // Increased delay to 100ms
+        }
+        onOpenChange?.(o);
+    }
+
     const variantClasses = {
         primary: "bg-primary text-black",
         secondary: "bg-secondary text-black",
@@ -73,7 +89,7 @@
     value={localValue}
     onValueChange={(v) => localValue = v}
     open={isOpen}
-    onOpenChange={(o) => isOpen = o}
+    onOpenChange={handleOpenChange}
     {minValue}
     {maxValue}
     {disabled}
@@ -136,6 +152,9 @@
         class="z-50"
         align="center"
         avoidCollisions={true}
+        strategy="fixed"
+        sideOffset={5}
+        side="bottom"
     >
         <div class={cn(
             "clay p-4 overflow-auto",

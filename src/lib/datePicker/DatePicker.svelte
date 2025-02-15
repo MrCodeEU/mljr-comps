@@ -47,11 +47,27 @@
         warning: "bg-warning text-black",
         info: "bg-info text-black"
     };
+
+    function handleOpenChange(isOpen: boolean) {
+        open = isOpen;
+        if (isOpen) {
+            // Capture current scroll position
+            const currentScroll = window.scrollY;
+            // Wait for the calendar to render and any automatic scrolling to occur
+            setTimeout(() => {
+                window.scrollTo({
+                    top: currentScroll,
+                    behavior: 'instant' // Use instant instead of auto
+                });
+            }, 1); // Increased delay to 100ms
+        }
+    }
 </script>
 
 <BitsDatePicker.Root
     bind:value
-    bind:open
+    open={open}
+    onOpenChange={handleOpenChange}
     {...props}
     class={cn("relative inline-block", className)}
     locale="en-GB"
@@ -96,6 +112,7 @@
                     disabled ? "opacity-50" : "cursor-pointer",
                     variantClasses[variant as keyof typeof variantClasses]
                 )}
+                
             >
                 <Icon icon="mdi:calendar" class="size-5" />
             </BitsDatePicker.Trigger>
@@ -106,6 +123,8 @@
         class="z-50"
         align="center"
         strategy="fixed"
+        sideOffset={5}
+        side="bottom"
         avoidCollisions={true}
     >
         <BitsDatePicker.Calendar
@@ -113,6 +132,7 @@
                 "clay p-4 overflow-auto", 
                 variantClasses[variant as keyof typeof variantClasses]
             )}
+            autofocus={true}
         >
             {#snippet children({ months, weekdays })}
                 {@render calendarSnippet?.({ months, weekdays })}
