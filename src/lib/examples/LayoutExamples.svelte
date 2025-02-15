@@ -4,10 +4,10 @@
 	import Masonry from '$lib/Masonry.svelte';
 	import { AspectRatio } from '$lib/index.js';
 	import Icon from '@iconify/svelte';
-    import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '$lib/index.js';
-    import { Tab, TabTrigger, TabContent } from '$lib/index.js';
+	import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '$lib/index.js';
+	import { Tab, TabTrigger, TabContent } from '$lib/index.js';
 	import { ScrollArea } from '$lib/index.js';
-	
+
 	let notificationCount = $state(3);
 </script>
 
@@ -86,49 +86,48 @@
 		</CardBody>
 	</Card>
 
+	<Card>
+		<CardHeader>
+			<CardTitle>Aspect Ratio</CardTitle>
+			<CardDescription>Maintains content proportions</CardDescription>
+		</CardHeader>
+		<CardBody>
+			<div class="grid gap-4">
+				<AspectRatio ratio={16 / 9} class="clay overflow-hidden">
+					<img
+						src="https://picsum.photos/1600/900"
+						alt="Random"
+						class="absolute h-full w-full object-cover"
+					/>
+					<div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
+						16:9 Ratio
+					</div>
+				</AspectRatio>
 
-    <Card>
-        <CardHeader>
-            <CardTitle>Aspect Ratio</CardTitle>
-            <CardDescription>Maintains content proportions</CardDescription>
-        </CardHeader>
-        <CardBody>
-            <div class="grid gap-4">
-                <AspectRatio ratio={16/9} class="clay overflow-hidden">
-                    <img
-                        src="https://picsum.photos/1600/900"
-                        alt="Random"
-                        class="absolute h-full w-full object-cover"
-                    />
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
-                        16:9 Ratio
-                    </div>
-                </AspectRatio>
+				<AspectRatio ratio={4 / 3} class="clay overflow-hidden">
+					<img
+						src="https://picsum.photos/800/600"
+						alt="Random"
+						class="absolute h-full w-full object-cover"
+					/>
+					<div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
+						4:3 Ratio
+					</div>
+				</AspectRatio>
 
-                <AspectRatio ratio={4/3} class="clay overflow-hidden">
-                    <img
-                        src="https://picsum.photos/800/600"
-                        alt="Random"
-                        class="absolute h-full w-full object-cover"
-                    />
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
-                        4:3 Ratio
-                    </div>
-                </AspectRatio>
-
-                <AspectRatio ratio={1} class="clay overflow-hidden">
-                    <img
-                        src="https://picsum.photos/500/500"
-                        alt="Random"
-                        class="absolute h-full w-full object-cover"
-                    />
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
-                        1:1 Ratio
-                    </div>
-                </AspectRatio>
-            </div>
-        </CardBody>
-    </Card>
+				<AspectRatio ratio={1} class="clay overflow-hidden">
+					<img
+						src="https://picsum.photos/500/500"
+						alt="Random"
+						class="absolute h-full w-full object-cover"
+					/>
+					<div class="absolute inset-0 flex items-center justify-center bg-black/30 text-white">
+						1:1 Ratio
+					</div>
+				</AspectRatio>
+			</div>
+		</CardBody>
+	</Card>
 
 	<Card>
 		<CardHeader>
@@ -145,7 +144,9 @@
 								<div class="relative">
 									<Icon icon="heroicons:bell" class="h-6 w-6" />
 									{#if notificationCount > 0}
-										<div class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-error text-xs text-white">
+										<div
+											class="bg-error absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full text-xs text-white"
+										>
 											{notificationCount}
 										</div>
 									{/if}
@@ -157,19 +158,19 @@
 					{#snippet content()}
 						<CollapsibleContent>
 							<div class="space-y-2">
-								<div class="flex items-center justify-between rounded bg-info/10 p-3">
+								<div class="bg-info/10 flex items-center justify-between rounded p-3">
 									<span>New message from Alice</span>
 									<button class="clay-button" onclick={() => notificationCount--}>
 										<Icon icon="heroicons:check" class="h-4 w-4" />
 									</button>
 								</div>
-								<div class="flex items-center justify-between rounded bg-info/10 p-3">
+								<div class="bg-info/10 flex items-center justify-between rounded p-3">
 									<span>Bob mentioned you</span>
 									<button class="clay-button" onclick={() => notificationCount--}>
 										<Icon icon="heroicons:check" class="h-4 w-4" />
 									</button>
 								</div>
-								<div class="flex items-center justify-between rounded bg-info/10 p-3">
+								<div class="bg-info/10 flex items-center justify-between rounded p-3">
 									<span>Meeting reminder</span>
 									<button class="clay-button" onclick={() => notificationCount--}>
 										<Icon icon="heroicons:check" class="h-4 w-4" />
@@ -190,12 +191,17 @@
 									alt="Random"
 									class="aspect-video w-full object-cover transition-transform group-hover:scale-105"
 								/>
-								<div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
+								<div
+									class="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-4 text-white"
+								>
 									<div class="flex-1">
 										<h3 class="text-lg font-bold">Featured Content</h3>
 										<p class="text-sm opacity-90">Click to expand for details</p>
 									</div>
-									<Icon icon="heroicons:chevron-down" class="h-6 w-6 transition-transform group-data-[state=open]:rotate-180" />
+									<Icon
+										icon="heroicons:chevron-down"
+										class="h-6 w-6 transition-transform group-data-[state=open]:rotate-180"
+									/>
 								</div>
 							</div>
 						</CollapsibleTrigger>
@@ -203,9 +209,7 @@
 					{#snippet content()}
 						<CollapsibleContent>
 							<div class="prose dark:prose-invert">
-								<p>
-									This example shows how flexible the Collapsible component can be. You can:
-								</p>
+								<p>This example shows how flexible the Collapsible component can be. You can:</p>
 								<ul>
 									<li>Use custom trigger layouts</li>
 									<li>Add images and overlays</li>
@@ -231,13 +235,17 @@
 										alt="Avatar"
 										class="rounded-full"
 									/>
-									<div class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-success ring-2 ring-white"></div>
+									<div
+										class="bg-success absolute right-0 bottom-0 h-3 w-3 rounded-full ring-2 ring-white"
+									></div>
 								</div>
 								<div class="flex-1 text-left">
 									<div class="font-semibold">Chat Support</div>
 									<div class="text-sm opacity-70">Online - Click to expand</div>
 								</div>
-								<div class="flex h-6 w-6 items-center justify-center rounded-full bg-success text-xs text-white">
+								<div
+									class="bg-success flex h-6 w-6 items-center justify-center rounded-full text-xs text-white"
+								>
 									2
 								</div>
 							</div>
@@ -254,7 +262,7 @@
 											class="rounded-full"
 										/>
 									</div>
-									<div class="clay max-w-[80%] rounded-lg rounded-tl-none bg-primary/10 p-3">
+									<div class="clay bg-primary/10 max-w-[80%] rounded-lg rounded-tl-none p-3">
 										Hello! How can I help you today?
 									</div>
 								</div>
@@ -266,7 +274,9 @@
 											class="rounded-full"
 										/>
 									</div>
-									<div class="clay max-w-[80%] rounded-lg rounded-tr-none bg-primary p-3 text-white">
+									<div
+										class="clay bg-primary max-w-[80%] rounded-lg rounded-tr-none p-3 text-white"
+									>
 										I have a question about the Collapsible component.
 									</div>
 								</div>
@@ -285,14 +295,14 @@
 		</CardHeader>
 		<CardBody>
 			<div class="grid gap-6">
-				 <!-- Primary Variant -->
-				 <div>
+				<!-- Primary Variant -->
+				<div>
 					<h4 class="mb-2 font-semibold">Primary Variant</h4>
 					<ScrollArea class="h-[200px] w-full max-w-md" variant="primary">
 						<div class="space-y-4">
 							{#each Array(8) as _, i}
 								<div class="clay bg-primary/5 p-4">
-									<h5 class="font-semibold text-primary">Section {i + 1}</h5>
+									<h5 class="text-primary font-semibold">Section {i + 1}</h5>
 									<p class="text-sm">Primary variant example with clay styling.</p>
 								</div>
 							{/each}
@@ -301,57 +311,51 @@
 				</div>
 
 				<!-- Success Variant with Horizontal Scroll -->
-					<div>
-						<h4 class="mb-2 font-semibold">Success Variant (Horizontal)</h4>
-						<ScrollArea 
-							orientation="horizontal" 
-							variant="success"
-							class="h-[150px] w-full max-w-[550px]"
-						>
-							<div class="flex gap-4"> <!-- Removed w-fit -->
-								{#each Array(8) as _, i}
-									<div class="clay h-[120px] w-[200px] shrink-0 bg-success/5 p-4">
-										<h5 class="font-semibold text-success">Card {i + 1}</h5>
-										<p class="text-sm">Success variant with horizontal scroll.</p>
-									</div>
-								{/each}
-							</div>
-						</ScrollArea>
-					</div>
+				<div>
+					<h4 class="mb-2 font-semibold">Success Variant (Horizontal)</h4>
+					<ScrollArea
+						orientation="horizontal"
+						variant="success"
+						class="h-[150px] w-full max-w-[550px]"
+					>
+						<div class="flex gap-4">
+							<!-- Removed w-fit -->
+							{#each Array(8) as _, i}
+								<div class="clay bg-success/5 h-[120px] w-[200px] shrink-0 p-4">
+									<h5 class="text-success font-semibold">Card {i + 1}</h5>
+									<p class="text-sm">Success variant with horizontal scroll.</p>
+								</div>
+							{/each}
+						</div>
+					</ScrollArea>
+				</div>
 
 				<!-- Info Variant with Both Scrollbars -->
-					<div>
-						<h4 class="mb-2 font-semibold">Info Variant (Both)</h4>
-						<ScrollArea 
-							orientation="both" 
-							variant="info" 
-							class="h-[400px] w-full max-w-[500px]"
-						>
-							<div class="grid h-[600px] w-[800px] grid-cols-3 gap-4"> <!-- Removed wrapper div -->
-								{#each Array(15) as _, i}
-									<div class="clay flex aspect-square items-center justify-center bg-info/5">
-										<div class="text-center">
-											<h5 class="font-semibold text-info">Item {i + 1}</h5>
-											<p class="text-sm">Info variant example.</p>
-										</div>
+				<div>
+					<h4 class="mb-2 font-semibold">Info Variant (Both)</h4>
+					<ScrollArea orientation="both" variant="info" class="h-[400px] w-full max-w-[500px]">
+						<div class="grid h-[600px] w-[800px] grid-cols-3 gap-4">
+							<!-- Removed wrapper div -->
+							{#each Array(15) as _, i}
+								<div class="clay bg-info/5 flex aspect-square items-center justify-center">
+									<div class="text-center">
+										<h5 class="text-info font-semibold">Item {i + 1}</h5>
+										<p class="text-sm">Info variant example.</p>
 									</div>
-								{/each}
-							</div>
-							</ScrollArea>
-					</div>
+								</div>
+							{/each}
+						</div>
+					</ScrollArea>
+				</div>
 
 				<!-- Accent Variant with Auto Type -->
 				<div>
 					<h4 class="mb-2 font-semibold">Accent Variant (Auto Type)</h4>
-					<ScrollArea 
-						type="auto" 
-						variant="accent" 
-						class="h-[200px] w-full max-w-md"
-					>
+					<ScrollArea type="auto" variant="accent" class="h-[200px] w-full max-w-md">
 						<div class="space-y-4">
 							{#each Array(8) as _, i}
 								<div class="clay bg-accent/5 p-4">
-									<h5 class="font-semibold text-accent">Section {i + 1}</h5>
+									<h5 class="text-accent font-semibold">Section {i + 1}</h5>
 									<p class="text-sm">Accent variant with auto-visible scrollbar.</p>
 								</div>
 							{/each}
@@ -406,7 +410,11 @@
 							<div class="space-y-4">
 								<div class="flex items-center gap-4">
 									<div class="h-10 w-10">
-										<img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice" alt="Avatar" class="rounded-full" />
+										<img
+											src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
+											alt="Avatar"
+											class="rounded-full"
+										/>
 									</div>
 									<div>
 										<div class="font-semibold">Alice</div>
@@ -415,7 +423,11 @@
 								</div>
 								<div class="flex items-center gap-4">
 									<div class="h-10 w-10">
-										<img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob" alt="Avatar" class="rounded-full" />
+										<img
+											src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
+											alt="Avatar"
+											class="rounded-full"
+										/>
 									</div>
 									<div>
 										<div class="font-semibold">Bob</div>
@@ -439,7 +451,7 @@
 					{#snippet content()}
 						<TabContent value="spring" class="bg-success/10">
 							<div class="flex items-center gap-4">
-								<Icon icon="ph:flower-lotus-bold" class="h-12 w-12"/>
+								<Icon icon="ph:flower-lotus-bold" class="h-12 w-12" />
 								<div>
 									<h4 class="text-lg font-bold">Spring Collection</h4>
 									<p>Fresh and vibrant designs for the season of renewal.</p>
@@ -449,7 +461,7 @@
 
 						<TabContent value="summer" class="bg-warning/10">
 							<div class="flex items-center gap-4">
-								<Icon icon="ph:sun-bold" class="h-12 w-12"/>
+								<Icon icon="ph:sun-bold" class="h-12 w-12" />
 								<div>
 									<h4 class="text-lg font-bold">Summer Collection</h4>
 									<p>Bright and energetic styles for warm sunny days.</p>
@@ -459,7 +471,7 @@
 
 						<TabContent value="autumn" class="bg-error/10">
 							<div class="flex items-center gap-4">
-								<Icon icon="ph:leaf-bold" class="h-12 w-12"/>
+								<Icon icon="ph:leaf-bold" class="h-12 w-12" />
 								<div>
 									<h4 class="text-lg font-bold">Autumn Collection</h4>
 									<p>Warm and cozy designs for the falling leaves.</p>
@@ -469,7 +481,7 @@
 
 						<TabContent value="winter" class="bg-info/10">
 							<div class="flex items-center gap-4">
-								<Icon icon="ph:snowflake-bold" class="h-12 w-12"/>
+								<Icon icon="ph:snowflake-bold" class="h-12 w-12" />
 								<div>
 									<h4 class="text-lg font-bold">Winter Collection</h4>
 									<p>Cool and sophisticated styles for the snowy season.</p>

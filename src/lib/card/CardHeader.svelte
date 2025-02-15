@@ -5,7 +5,7 @@
 	let {
 		children
 	}: {
-        children: Snippet;
+		children: Snippet;
 	} = $props();
 </script>
 

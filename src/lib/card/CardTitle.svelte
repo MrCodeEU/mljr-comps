@@ -10,7 +10,7 @@
 		class?: string;
 	} = $props();
 </script>
+
 <div class={cn('flex flex-row text-2xl font-bold', className)}>
 	{@render children?.()}
-</div>    
-
+</div>

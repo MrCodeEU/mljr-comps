@@ -9,6 +9,10 @@
 	} = $props();
 </script>
 
-<div class={cn('flex flex-row items-center justify-between pt-4 text-sm text-gray-600 dark:text-gray-400')}>
+<div
+	class={cn(
+		'flex flex-row items-center justify-between pt-4 text-sm text-gray-600 dark:text-gray-400'
+	)}
+>
 	{@render children?.()}
 </div>

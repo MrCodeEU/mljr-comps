@@ -1,10 +1,8 @@
 <script lang="ts">
-    import { ContextMenu } from "bits-ui";
-    import { cn } from '$lib/utility.js';
+	import { ContextMenu } from 'bits-ui';
+	import { cn } from '$lib/utility.js';
 
-    let { class: className = "" } = $props();
+	let { class: className = '' } = $props();
 </script>
 
-<ContextMenu.Separator 
-    class={cn("my-1 h-[3px] bg-text/50 clay-inset", className)} 
-/>
+<ContextMenu.Separator class={cn('bg-text/50 clay-inset my-1 h-[3px]', className)} />

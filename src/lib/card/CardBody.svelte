@@ -4,13 +4,13 @@
 
 	let {
 		children,
-		class: className,
+		class: className
 	}: {
 		children?: Snippet;
 		class?: string;
 	} = $props();
 </script>
 
-<div class={cn('py-4 flex flex-col gap-4', className)}>
+<div class={cn('flex flex-col gap-4 py-4', className)}>
 	{@render children?.()}
 </div>

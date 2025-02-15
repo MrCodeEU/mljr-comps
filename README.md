@@ -5,6 +5,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Input Components
 
 ### Basic Inputs
+
 - [ ] Button - Basic button with onClick
   - [ ] Button Group
   - [ ] Icon Button
@@ -51,6 +52,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Time Range
 
 ### Form Structure
+
 - [ ] Form - Form wrapper with validation
   - [ ] Reset Functionality
   - [ ] Submit Handling
@@ -74,6 +76,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Navigation Components
 
 ### Primary Navigation
+
 - [ ] Navbar - Main navigation bar
   - [ ] Responsive Breakpoints
   - [ ] Sticky/Fixed Position
@@ -100,6 +103,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Items Per Page
 
 ### Secondary Navigation
+
 - [ ] Drawer - Side panel navigation
   - [ ] Multiple Positions
   - [ ] Overlay/Push Modes
@@ -113,6 +117,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 - [ ] Command Palette - Keyboard Navigation
 
 ### Content Containers
+
 - [ ] Card - Content wrapper
   - [ ] Loading State
   - [ ] With Actions
@@ -142,10 +147,10 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Arrow Indicators
   - [ ] Click/Hover Trigger
 
-
 ## Display Components
 
 ### Status & Progress
+
 - [ ] Alert - Status messages
   - [ ] Different Types (success, error, warning, info)
   - [ ] Dismissible
@@ -177,6 +182,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] With Charts
 
 ### Media & Content
+
 - [ ] Avatar - User images
   - [ ] With Status
   - [ ] Group Layout
@@ -201,6 +207,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Interactive Items
 
 ### Data Display
+
 - [ ] Table - Data grid
   - [ ] Sortable Columns
   - [ ] Filterable
@@ -225,6 +232,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Utility Components
 
 ### Interactive Utils
+
 - [ ] Countdown - Number animations
   - [ ] Different Formats
   - [ ] Custom Styling
@@ -258,6 +266,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Prebuilt Compound Components
 
 ### Authentication & User
+
 - [ ] Login
   - [ ] Social Login Options
   - [ ] Remember Me
@@ -276,6 +285,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Privacy Settings
 
 ### Layout Components
+
 - [ ] Navbar
   - [ ] Responsive Mobile Menu
   - [ ] Search Integration
@@ -294,6 +304,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] With Categories
 
 ### Common Features
+
 - [ ] Search Interface (configurable with JSON?)
   - [ ] Advanced Filters
   - [ ] Results Display
@@ -313,6 +324,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Rating Widget
 
 ### Content Management
+
 - [ ] Blog Post Card
   - [ ] Author Info
   - [ ] Reading Time
