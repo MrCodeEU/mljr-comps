@@ -1,9 +1,15 @@
 <script lang="ts">
-    import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '$lib/index.js';
+    import { Card, CardHeader, CardTitle, CardDescription, CardBody, DateRangeCalendar } from '$lib/index.js';
     import Masonry from '$lib/Masonry.svelte';
     import Button from '$lib/Button.svelte';
     import Icon from '@iconify/svelte';
     import { Checkbox, CheckboxLabel, CheckboxGroup } from '$lib/index.js';
+    import { DatePicker, DateRangePicker, DatePickerCalendar } from '$lib/index.js';
+    import { today, getLocalTimeZone, CalendarDate, type DateValue } from '@internationalized/date';
+	import type { DateRange } from 'bits-ui';
+
+    let singleDate = $state<DateValue>();
+    let dateRange = $state<DateRange>({ start: undefined, end: undefined });
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Input & Form Components</h3>
@@ -239,17 +245,126 @@
     <Card>
         <CardHeader>
             <CardTitle>Date Field</CardTitle>
-            <CardDescription>Date input field with validation</CardDescription>
+            <CardDescription>Date input field with claymorphic design</CardDescription>
         </CardHeader>
-        <CardBody>Coming soon...</CardBody>
+        <CardBody class="space-y-8">
+            <!-- Variant Examples -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Variants</h4>
+                <div class="flex flex-wrap gap-4">
+                    <DatePicker bind:value={singleDate} variant="primary">
+                        {#snippet labelSnippet()}Primary{/snippet}
+                        {#snippet calendarSnippet({ months, weekdays })}
+                            <DatePickerCalendar {months} {weekdays} />
+                        {/snippet}
+                    </DatePicker>
+
+                    <DatePicker bind:value={singleDate} variant="accent">
+                        {#snippet labelSnippet()}Accent{/snippet}
+                        {#snippet calendarSnippet({ months, weekdays })}
+                            <DatePickerCalendar {months} {weekdays} />
+                        {/snippet}
+                    </DatePicker>
+
+                    <DatePicker bind:value={singleDate} variant="muted">
+                        {#snippet labelSnippet()}Muted{/snippet}
+                        {#snippet calendarSnippet({ months, weekdays })}
+                            <DatePickerCalendar {months} {weekdays} />
+                        {/snippet}
+                    </DatePicker>
+                </div>
+            </div>
+
+            <!-- State Examples -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">States</h4>
+                <div class="flex flex-wrap gap-4">
+                    <DatePicker disabled variant="primary">
+                        {#snippet labelSnippet()}Disabled{/snippet}
+                        {#snippet calendarSnippet({ months, weekdays })}
+                            <DatePickerCalendar {months} {weekdays} />
+                        {/snippet}
+                    </DatePicker>
+
+                    <DatePicker 
+                        bind:value={singleDate} 
+                        minValue={today(getLocalTimeZone())}
+                        variant="warning"
+                    >
+                        {#snippet labelSnippet()}Future Only{/snippet}
+                        {#snippet calendarSnippet({ months, weekdays })}
+                            <DatePickerCalendar {months} {weekdays} />
+                        {/snippet}
+                    </DatePicker>
+
+                    <DatePicker variant="error">
+                        {#snippet labelSnippet()}Invalid{/snippet}
+                        {#snippet calendarSnippet({ months, weekdays })}
+                            <DatePickerCalendar {months} {weekdays} />
+                        {/snippet}
+                    </DatePicker>
+                </div>
+            </div>
+        </CardBody>
     </Card>
 
     <Card>
         <CardHeader>
             <CardTitle>Date Range Field</CardTitle>
-            <CardDescription>Date range input field with validation</CardDescription>
+            <CardDescription>Date range selection with claymorphic design</CardDescription>
         </CardHeader>
-        <CardBody>Coming soon...</CardBody>
+        <CardBody class="space-y-8">
+            <!-- Basic Examples -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Basic Range</h4>
+                <div class="flex flex-wrap gap-4">
+                    <DateRangePicker 
+                        value={dateRange}
+                        variant="primary"
+                    >
+                        {#snippet labelSnippet()}Select Range{/snippet}
+                    </DateRangePicker>
+                </div>
+            </div>
+
+            <!-- Variants -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">Variants</h4>
+                <div class="flex flex-wrap gap-4">
+                    <DateRangePicker 
+                        variant="accent"
+                    >
+                        {#snippet labelSnippet()}Booking Period{/snippet}
+                    </DateRangePicker>
+
+                    <DateRangePicker 
+                        variant="success"
+                    >
+                        {#snippet labelSnippet()}Available Dates{/snippet}
+                    </DateRangePicker>
+                </div>
+            </div>
+
+            <!-- Custom Range Examples -->
+            <div class="space-y-2">
+                <h4 class="text-lg font-semibold">With Constraints</h4>
+                <div class="flex flex-wrap gap-4">
+                    <DateRangePicker 
+                        variant="info"
+                        minValue={today(getLocalTimeZone())}
+                    >
+                        {#snippet labelSnippet()}Future Dates Only{/snippet}
+                    </DateRangePicker>
+
+                    <DateRangePicker 
+                        variant="warning"
+                        disabled
+                    >
+                        {#snippet labelSnippet()}Disabled Range{/snippet}
+                    </DateRangePicker>
+                </div>
+            </div>
+        </CardBody>
     </Card>
 
     <Card>
