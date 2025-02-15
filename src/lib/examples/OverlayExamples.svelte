@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '$lib/index.js';
     import { AlertDialog } from '$lib/alert-dialog/index.js';
+    import { Dialog } from '$lib/dialog/index.js';
     import Masonry from '$lib/Masonry.svelte';
     import AspectRatio from '$lib/AspectRatio.svelte';
     import ComboBox from '$lib/ComboBox.svelte';
@@ -182,7 +183,53 @@
             <CardTitle>Dialog</CardTitle>
             <CardDescription>Modal dialog component</CardDescription>
         </CardHeader>
-        <CardBody>Coming soon...</CardBody>
+        <CardBody>
+            <div class="flex flex-col gap-4">
+                <Dialog 
+                    variant="primary" 
+                    triggerText="Basic Dialog"
+                    cardVariant="default"
+                >
+                    {#snippet title()}
+                        Basic Dialog
+                    {/snippet}
+                    {#snippet description()}
+                        This is a basic dialog with default styling.
+                        It demonstrates the standard dialog pattern.
+                    {/snippet}
+                </Dialog>
+
+                <Dialog 
+                    variant="accent"
+                    triggerText="Accent Dialog"
+                    cardVariant="accent"
+                    closeVariant="primary"
+                >
+                    {#snippet title()}
+                        Accent Dialog
+                    {/snippet}
+                    {#snippet description()}
+                        This dialog uses the accent color scheme with
+                        a primary colored close button.
+                    {/snippet}
+                </Dialog>
+
+                <Dialog 
+                    variant="info"
+                    triggerText="No Close Button"
+                    cardVariant="info"
+                    showClose={false}
+                >
+                    {#snippet title()}
+                        Information Only
+                    {/snippet}
+                    {#snippet description()}
+                        This dialog has no close button.
+                        Click outside to close.
+                    {/snippet}
+                </Dialog>
+            </div>
+        </CardBody>
     </Card>
 
     <Card>
