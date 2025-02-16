@@ -14,7 +14,7 @@
 	import { DatePicker, DateRangePicker, DatePickerCalendar } from '$lib/index.js';
 	import { today, getLocalTimeZone, CalendarDate, type DateValue } from '@internationalized/date';
 	import type { DateRange } from 'bits-ui';
-	import { Select, SelectContent, SelectItem } from '$lib/index.js';
+	import { Select, SelectContent, SelectItem, Slider } from '$lib/index.js';
     
     const fruits = [
         { value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
@@ -38,6 +38,9 @@
     let selectedColors = $state<string[]>([]);
     
 	let selectedFruitLabel = $derived(fruits.find(f => f.value === selectedFruit)?.label ?? 'Nothing selected');
+	let singleSliderValue = $state(50);
+	let rangeSliderLower = $state(25);
+	let rangeSliderUpper = $state(75);
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Input & Form Components</h3>
@@ -582,9 +585,92 @@
 	<Card>
 		<CardHeader>
 			<CardTitle>Slider</CardTitle>
-			<CardDescription>Range input control</CardDescription>
+			<CardDescription>Range input control with claymorphic design</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Basic Slider</h4>
+				<div class="space-y-4">
+					<Slider bind:value={singleSliderValue} />
+					<Slider value={75} variant="accent" showFloatingLabel />
+				</div>
+			</div>
+
+			<!-- Variants -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="space-y-4">
+					<Slider value={25} variant="primary" showTicks showLabels />
+					<Slider value={50} variant="secondary" showTicks showLabels />
+					<div class="flex gap-12 p-5">
+						<Slider value={75} orientation="vertical" variant="accent" showTicks showLabels showFloatingLabel />
+						<Slider value={60} orientation="vertical" variant="warning" showTicks showLabels />
+					</div>
+				</div>
+			</div>
+
+			<!-- Range Examples -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Range Selection</h4>
+				<div class="space-y-4">
+					<Slider 
+						bind:lowerValue={rangeSliderLower}
+						bind:upperValue={rangeSliderUpper}
+						variant="primary"
+						showFloatingLabel 
+					/>
+					<Slider 
+						lowerValue={30}
+						upperValue={60}
+						variant="accent"
+						showTicks
+						showLabels
+						formatLabel={(v) => `$${v}`}
+					/>
+				</div>
+			</div>
+
+			<!-- Custom Steps -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Custom Steps</h4>
+				<div class="space-y-4">
+					<Slider 
+						value={50} 
+						step={10} 
+						showTicks 
+						showLabels
+						variant="info"
+					/>
+					<Slider 
+						lowerValue={200}
+						upperValue={800}
+						min={0}
+						max={1000}
+						step={100}
+						showTicks
+						showLabels
+						variant="success"
+						formatLabel={(v) => `${v}ms`}
+					/>
+				</div>
+			</div>
+
+			<!-- States -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="space-y-4">
+					<Slider value={30} disabled variant="muted" showFloatingLabel />
+					<Slider 
+						lowerValue={20}
+						upperValue={60}
+						disabled 
+						variant="muted" 
+						showFloatingLabel 
+					/>
+				</div>
+			</div>
+		</CardBody>
 	</Card>
 
 	<Card>

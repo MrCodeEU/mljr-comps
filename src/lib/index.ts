@@ -15,3 +15,4 @@ export { default as ScrollArea } from './ScrollArea.svelte';
 export * from '$lib/contextMenu/index.js';
 export * from '$lib/datePicker/index.js';
 export * from '$lib/select/index.js';
+export {default as Slider } from '$lib/slider/Slider.svelte';
