@@ -14,9 +14,30 @@
 	import { DatePicker, DateRangePicker, DatePickerCalendar } from '$lib/index.js';
 	import { today, getLocalTimeZone, CalendarDate, type DateValue } from '@internationalized/date';
 	import type { DateRange } from 'bits-ui';
+	import { Select, SelectContent, SelectItem } from '$lib/index.js';
+    
+    const fruits = [
+        { value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
+        { value: 'banana', label: 'Banana', icon: 'lucide:banana' },
+        { value: 'orange', label: 'Orange', icon: 'icon-park-outline:orange-one' },
+        { value: 'mango', label: 'Mango', icon: 'fluent-emoji-high-contrast:mango' },
+        { value: 'grape', label: 'Grape', icon: 'mdi:fruit-grapes' }
+    ];
 
-	let singleDate = $state<DateValue>();
+    const colors = [
+        { value: 'red', label: 'Red', icon: 'mdi:circle' },
+        { value: 'blue', label: 'Blue', icon: 'mdi:circle' },
+        { value: 'green', label: 'Green', icon: 'mdi:circle' },
+        { value: 'yellow', label: 'Yellow', icon: 'mdi:circle' },
+        { value: 'purple', label: 'Purple', icon: 'mdi:circle' }
+    ];
+
+    let singleDate = $state<DateValue>();
 	let dateRange = $state<DateRange>({ start: undefined, end: undefined });
+	let selectedFruit = $state('');
+    let selectedColors = $state<string[]>([]);
+    
+	let selectedFruitLabel = $derived(fruits.find(f => f.value === selectedFruit)?.label ?? 'Nothing selected');
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Input & Form Components</h3>
@@ -377,9 +398,185 @@
 	<Card>
 		<CardHeader>
 			<CardTitle>Select</CardTitle>
-			<CardDescription>Dropdown selection control</CardDescription>
+			<CardDescription>Dropdown selection control with claymorphic design</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Basic Select</h4>
+				<div class="flex flex-wrap gap-4">
+					<Select 
+						items={fruits} 
+						bind:value={selectedFruit} 
+						placeholder="Choose a fruit"
+						variant="primary"
+					>
+						<SelectContent>
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+
+					<div class="clay flex items-center gap-2 px-4 py-2">
+						<span>Selected: </span>
+						{#if selectedFruit && fruits.find(f => f.value === selectedFruit)?.icon}
+							<Icon icon={fruits.find(f => f.value === selectedFruit)!.icon} class="size-5" />
+						{/if}
+						<span class="font-medium">{selectedFruitLabel}</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Variants -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="flex flex-wrap gap-4">
+					<Select items={fruits} variant="secondary" placeholder="Secondary">
+						<SelectContent variant="secondary">
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+
+					<Select items={fruits} variant="accent" placeholder="Accent">
+						<SelectContent variant="accent">
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+
+					<Select items={fruits} variant="muted" placeholder="Muted">
+						<SelectContent variant="muted">
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+				</div>
+			</div>
+
+			<!-- With Icons -->
+			<div class="space-y-2"></div>
+				<h4 class="text-lg font-semibold">With Icons</h4>
+				<div class="flex flex-wrap gap-4">
+					<Select 
+						items={colors} 
+						variant="primary" 
+						icon="mdi:palette"
+						placeholder="Select color"
+					>
+						<SelectContent>
+							{#each colors as color}
+								<SelectItem 
+									value={color.value} 
+									label={color.label} 
+									icon={color.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+
+					<Select 
+						items={fruits} 
+						variant="accent" 
+						icon="mdi:fruit-cherries"
+						placeholder="Select fruit"
+					>
+						<SelectContent variant="accent">
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+				</div>
+
+			<!-- States -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="flex flex-wrap gap-4">
+					<Select 
+						items={fruits} 
+						disabled 
+						variant="muted"
+						placeholder="Disabled select"
+					>
+						<SelectContent>
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+
+					<Select 
+						items={fruits} 
+						required 
+						variant="warning"
+						placeholder="Required select"
+					>
+						<SelectContent variant="warning">
+							{#each fruits as fruit}
+								<SelectItem 
+									value={fruit.value} 
+									label={fruit.label} 
+									icon={fruit.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+				</div>
+			</div>
+
+			<!-- Multiple Selection -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Multiple Selection</h4>
+				<div class="flex flex-wrap gap-4">
+					<Select 
+						items={colors} 
+						type="multiple"
+						bind:value={selectedColors}
+						variant="info"
+						placeholder="Select multiple colors"
+					>
+						<SelectContent variant="info">
+							{#each colors as color}
+								<SelectItem 
+									value={color.value} 
+									label={color.label} 
+									icon={color.icon}
+								/>
+							{/each}
+						</SelectContent>
+					</Select>
+				</div>
+			</div>
+		</CardBody>
 	</Card>
 
 	<Card>
