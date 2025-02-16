@@ -16,10 +16,21 @@
 	} from '$lib/dropdown-menu/index.js';
 	import { Checkbox } from '$lib/checkbox/index.js';
 	import Icon from '@iconify/svelte';
+	import {
+		Navbar,
+		NavbarBrand,
+		NavbarItem,
+		NavbarSeparator
+	} from '$lib/navbar/index.js';
 
 	let notifications = $state(false);
 	let markAsRead = $state(false);
 	let selected = $state('');
+	let activeTheme = $state('light');
+	let fontSize = $state('medium');
+	let isMobileMenuOpen = $state(false);
+	let activePage = $state('home');
+	let isDrawerOpen = $state(false);
 
 	const users = [
 		{ label: '@huntabyte', value: 'hunt', avatar: 'https://github.com/huntabyte.png' },
@@ -33,18 +44,18 @@
 		{ label: 'Messages', value: 'messages', icon: 'mdi:message', shortcut: '⌘M' },
 		{ label: 'Files', value: 'files', icon: 'mdi:folder', shortcut: '⌘F' }
 	];
+
+	const menuVariants = ['primary', 'secondary', 'tertiary', 'accent', 'info'] as const;
+	const navItems = [
+		{ label: 'Home', value: 'home', icon: 'mdi:home' },
+		{ label: 'About', value: 'about', icon: 'mdi:information' },
+		{ label: 'Projects', value: 'projects', icon: 'mdi:folder' },
+		{ label: 'Contact', value: 'contact', icon: 'mdi:email' }
+	];
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Navigation & Menu Components</h3>
 <Masonry colWidth="minmax(Min(30em, 100%), 1fr)" gridGap="1.5rem" padding="0.5rem" reset={true}>
-	<Card>
-		<CardHeader>
-			<CardTitle>Command</CardTitle>
-			<CardDescription>Command palette interface</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
-
 	<Card>
 		<CardHeader>
 			<CardTitle>Context Menu</CardTitle>
@@ -177,32 +188,64 @@
 
 	<Card>
 		<CardHeader>
-			<CardTitle>Menubar</CardTitle>
-			<CardDescription>Horizontal menu system</CardDescription>
+			<CardTitle>Navbar</CardTitle>
+			<CardDescription>Application navigation bar</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
+		<CardBody class="flex flex-col gap-4">
+            <!-- Basic Navbar -->
+            <Navbar>
+                {#snippet brand()}
+                    <NavbarBrand>
+                        <Icon icon="mdi:book" class="size-6" />
+                        MyApp
+                    </NavbarBrand>
+                {/snippet}
 
-	<Card>
-		<CardHeader>
-			<CardTitle>Navigation Menu</CardTitle>
-			<CardDescription>Hierarchical navigation component</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+                {#snippet content(isMobile)}
+                        {#each navItems as item}
+                            <NavbarItem 
+                                active={activePage === item.value}
+                                onclick={() => activePage = item.value}
+                            >
+                                <Icon icon={item.icon} class="size-5" />
+                                {item.label}
+                            </NavbarItem>
+                        {/each}
+                        <NavbarSeparator orientation={isMobile ? "horizontal" :"vertical"} />
+                        <DropdownMenu variant="muted" icon="mdi:account">
+                            <DropdownMenuContent>
+                                {#each shortcuts as item}
+                                    <DropdownMenuItem {...item} />
+                                {/each}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                {/snippet}
+            </Navbar>
+
+            <!-- Colored Variants -->
+            {#each menuVariants as variant}
+                <Navbar {variant} breakpoint={300}>
+                    {#snippet brand()}
+                        <NavbarBrand>
+                            <Icon icon="mdi:book" class="size-6" />
+                            {variant} Navbar
+                        </NavbarBrand>
+                    {/snippet}
+
+                    {#snippet content()}
+                            <NavbarItem active>Home</NavbarItem>
+                            <NavbarItem>About</NavbarItem>
+                            <NavbarItem>Contact</NavbarItem>
+                    {/snippet}
+                </Navbar>
+            {/each}
+        </CardBody>
 	</Card>
 
 	<Card>
 		<CardHeader>
 			<CardTitle>Pagination</CardTitle>
 			<CardDescription>Page navigation controls</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
-
-	<Card>
-		<CardHeader>
-			<CardTitle>Toolbar</CardTitle>
-			<CardDescription>Tool container component</CardDescription>
 		</CardHeader>
 		<CardBody>Coming soon...</CardBody>
 	</Card>

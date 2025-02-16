@@ -20,14 +20,6 @@
 
 	<Card>
 		<CardHeader>
-			<CardTitle>Link Preview</CardTitle>
-			<CardDescription>URL preview component</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
-
-	<Card>
-		<CardHeader>
 			<CardTitle>Progress</CardTitle>
 			<CardDescription>Progress indicator component</CardDescription>
 		</CardHeader>
