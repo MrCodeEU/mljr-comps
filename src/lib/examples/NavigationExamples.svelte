@@ -22,15 +22,14 @@
 		NavbarItem,
 		NavbarSeparator
 	} from '$lib/navbar/index.js';
+	import { Pagination } from '$lib/pagination/index.js';
 
 	let notifications = $state(false);
 	let markAsRead = $state(false);
-	let selected = $state('');
-	let activeTheme = $state('light');
-	let fontSize = $state('medium');
-	let isMobileMenuOpen = $state(false);
 	let activePage = $state('home');
-	let isDrawerOpen = $state(false);
+	let currentPage = $state(1);
+	let itemsPerPage = $state(10);
+	const totalItems = 237;
 
 	const users = [
 		{ label: '@huntabyte', value: 'hunt', avatar: 'https://github.com/huntabyte.png' },
@@ -52,6 +51,10 @@
 		{ label: 'Projects', value: 'projects', icon: 'mdi:folder' },
 		{ label: 'Contact', value: 'contact', icon: 'mdi:email' }
 	];
+
+	function handlePageChange(event: CustomEvent<{ page: number; perPage: number }>) {
+		console.log(`Page ${event.detail.page}, Items per page: ${event.detail.perPage}`);
+	}
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Navigation & Menu Components</h3>
@@ -247,6 +250,47 @@
 			<CardTitle>Pagination</CardTitle>
 			<CardDescription>Page navigation controls</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+		<CardBody class="flex flex-col gap-4">
+			<!-- Basic Pagination -->
+			<Pagination
+				total={totalItems}
+				perPage={itemsPerPage}
+			/>
+
+			<!-- With Per Page Selection -->
+			<p>Current Page: {currentPage}</p>
+			<p>Showing Items {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} ({itemsPerPage} per page)</p>
+
+			<Pagination
+				variant="accent"
+				total={totalItems}
+				bind:currentPage={currentPage}
+				bind:perPage={itemsPerPage}
+				showPerPage={true}
+				siblingCount={2}
+				boundaryCount={1}
+			/>
+
+			<!-- Compact Version (no ellipsis) -->
+			<Pagination
+				variant="info"
+				total={totalItems}
+				currentPage={1}
+				perPage={25}
+				showEllipsis={false}
+			/>
+
+			<!-- Different Variants -->
+			{#each menuVariants as variant}
+				<Pagination
+					{variant}
+					total={50}
+					currentPage={1}
+					perPage={10}
+					siblingCount={1}
+					boundaryCount={1}
+				/>
+			{/each}
+		</CardBody>
 	</Card>
 </Masonry>
