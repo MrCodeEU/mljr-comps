@@ -11,6 +11,9 @@
 		DialogDescription,
 		DialogClose
 	} from '$lib/dialog/index.js';
+	import { Tooltip, Button } from '$lib/index.js';
+	import Icon from '@iconify/svelte';
+	import { Popover } from '$lib/popover/index.js';
 
 	async function handleDelete() {
 		// Simulate async operation
@@ -200,9 +203,122 @@
 
 	<Card>
 		<CardHeader>
+			<CardTitle>Tooltip</CardTitle>
+			<CardDescription>Informative hover tooltips</CardDescription>
+		</CardHeader>
+		<CardBody>
+			<div class="flex flex-wrap gap-4">
+				<!-- Basic Tooltip -->
+				<Tooltip variant="primary">
+					{#snippet trigger()}
+						<Button variant="primary">
+							<Icon icon="mdi:information" />
+						</Button>
+					{/snippet}
+					Basic tooltip info
+				</Tooltip>
+
+				<!-- Different Variants -->
+				<Tooltip variant="accent">
+					{#snippet trigger()}
+						<Button variant="accent">
+							<Icon icon="mdi:help" />
+						</Button>
+					{/snippet}
+					Need help?
+				</Tooltip>
+
+				<Tooltip variant="success">
+					{#snippet trigger()}
+						<Button variant="success">
+							<Icon icon="mdi:check" />
+						</Button>
+					{/snippet}
+					Task completed
+				</Tooltip>
+
+				<Tooltip variant="error">
+					{#snippet trigger()}
+						<Button variant="error">
+							<Icon icon="mdi:alert" />
+						</Button>
+					{/snippet}
+					Important warning
+				</Tooltip>
+
+				<!-- With Custom Delay -->
+				<Tooltip variant="info" delayDuration={1000}>
+					{#snippet trigger()}
+						<Button variant="info">Hover 1s</Button>
+					{/snippet}
+					Delayed tooltip
+				</Tooltip>
+
+				<!-- With Rich Content -->
+				<Tooltip variant="muted">
+					{#snippet trigger()}
+						<Button variant="muted">
+							<Icon icon="mdi:settings" />
+						</Button>
+					{/snippet}
+					<div class="flex items-center gap-2">
+						<Icon icon="mdi:cog" class="size-4" />
+						<span>Configure settings</span>
+					</div>
+				</Tooltip>
+			</div>
+		</CardBody>
+	</Card>
+
+	<Card>
+		<CardHeader>
 			<CardTitle>Popover</CardTitle>
 			<CardDescription>Floating content overlay</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+		<CardBody>
+			<div class="flex flex-wrap gap-4">
+				<!-- Basic Popover -->
+				<Popover variant="primary">
+					{#snippet trigger()}
+						<Button variant="primary">
+							<Icon icon="mdi:information" />
+						</Button>
+					{/snippet}
+					<div class="p-4">
+						<h4 class="font-semibold">Basic Popover</h4>
+						<p class="text-sm">This is a basic popover example.</p>
+					</div>
+				</Popover>
+
+				<!-- Different Variants -->
+				<Popover variant="accent">
+					{#snippet trigger()}
+						<Button variant="accent">Settings</Button>
+					{/snippet}
+					<div class="p-4">
+						<h4 class="font-semibold">Settings</h4>
+						<p class="text-sm">Configure your preferences here.</p>
+					</div>
+				</Popover>
+
+				<!-- Rich Content -->
+				<Popover variant="info">
+					{#snippet trigger()}
+						<Button variant="info">Profile</Button>
+					{/snippet}
+					<div class="p-4">
+						<div class="flex items-center gap-3">
+							<div class="rounded-full bg-muted p-2">
+								<Icon icon="mdi:user" class="size-6" />
+							</div>
+							<div>
+								<h4 class="font-semibold">John Doe</h4>
+								<p class="text-sm text-muted-foreground">john@example.com</p>
+							</div>
+						</div>
+					</div>
+				</Popover>
+			</div>
+		</CardBody>
 	</Card>
 </Masonry>

@@ -16,3 +16,7 @@ export * from '$lib/contextMenu/index.js';
 export * from '$lib/datePicker/index.js';
 export * from '$lib/select/index.js';
 export {default as Slider } from '$lib/slider/Slider.svelte';
+export * from '$lib/radio/index.js';
+export * from '$lib/tooltip/index.js';
+export * from '$lib/popover/index.js';
+export {default as Progress} from '$lib/progress/Progress.svelte';

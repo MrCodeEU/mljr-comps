@@ -15,6 +15,11 @@
 	import { today, getLocalTimeZone, CalendarDate, type DateValue } from '@internationalized/date';
 	import type { DateRange } from 'bits-ui';
 	import { Select, SelectContent, SelectItem, Slider } from '$lib/index.js';
+    import PinInput from '$lib/pin-input/PinInput.svelte';
+    import { Radio, RadioGroup, RadioLabel } from '$lib/index.js';
+    import { useId } from 'bits-ui';
+    import Toggle from '$lib/Toggle.svelte';
+    import { Input, NumberInput } from '$lib/input/index.js';
     
     const fruits = [
         { value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
@@ -36,6 +41,11 @@
 	let dateRange = $state<DateRange>({ start: undefined, end: undefined });
 	let selectedFruit = $state('');
     let selectedColors = $state<string[]>([]);
+    let selectedOption = $state('');
+    let toggleState = $state(false);
+    let toggleWifi = $state(true);
+    let toggleDarkMode = $state(false);
+    let toggleNotifications = $state(true);
     
 	let selectedFruitLabel = $derived(fruits.find(f => f.value === selectedFruit)?.label ?? 'Nothing selected');
 	let singleSliderValue = $state(50);
@@ -128,6 +138,68 @@
 						<Icon icon="mdi:arrow-right" />
 					</Button>
 					<Button variant="accent" class="h-18">Tall Button</Button>
+				</div>
+			</div>
+		</CardBody>
+	</Card>
+
+	<Card>
+		<CardHeader>
+			<CardTitle>Input</CardTitle>
+			<CardDescription>Text input fields with claymorphism design</CardDescription>
+		</CardHeader>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Basic Inputs</h4>
+				<div class="grid gap-4">
+					<Input placeholder="Basic input" />
+					<Input placeholder="With label" label="Username" />
+					<Input type="password" placeholder="Password input" icon="mdi:lock" />
+					<Input type="email" placeholder="Email input" icon="mdi:email" iconPosition="right" />
+				</div>
+			</div>
+
+			<!-- Variants -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="grid gap-4">
+					<Input variant="primary" placeholder="Primary variant" />
+					<Input variant="accent" placeholder="Accent variant" />
+					<Input variant="info" placeholder="Info variant" />
+					<Input variant="muted" placeholder="Muted variant" />
+				</div>
+			</div>
+
+			<!-- Sizes -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Sizes</h4>
+				<div class="grid gap-4">
+					<Input size="sm" placeholder="Small input" />
+					<Input size="md" placeholder="Medium input" />
+					<Input size="lg" placeholder="Large input" />
+				</div>
+			</div>
+
+			<!-- States -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="grid gap-4">
+					<Input disabled placeholder="Disabled input" />
+					<Input error={true} placeholder="Error state" />
+					<Input readonly value="Read-only input" />
+					<Input required label="Required field" placeholder="Required input" />
+				</div>
+			</div>
+
+			<!-- Number Inputs -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Number Inputs</h4>
+				<div class="grid gap-4">
+					<NumberInput label="Basic number" />
+					<NumberInput variant="accent" min={0} max={100} step={5} label="With constraints" />
+					<NumberInput variant="info" controls={false} label="Without controls" />
+					<NumberInput disabled label="Disabled number input" />
 				</div>
 			</div>
 		</CardBody>
@@ -376,18 +448,54 @@
 
 	<Card>
 		<CardHeader>
-			<CardTitle>Label</CardTitle>
-			<CardDescription>Form label with advanced styling options</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
-
-	<Card>
-		<CardHeader>
 			<CardTitle>PIN Input</CardTitle>
 			<CardDescription>Segmented input for PIN/OTP codes</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Basic PIN</h4>
+				<div class="space-y-4">
+					<PinInput maxlength={6} />
+					<PinInput maxlength={4} variant="accent" />
+				</div>
+			</div>
+
+			<!-- Variants -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="space-y-4">
+					<PinInput variant="primary" />
+					<PinInput variant="secondary" />
+					<PinInput variant="accent" />
+					<PinInput variant="muted" />
+				</div>
+			</div>
+
+			<!-- States -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="space-y-4">
+					<PinInput disabled variant="muted" value="123" />
+					<PinInput variant="error" value="12345" />
+					<PinInput variant="success" value="123456" />
+					<PinInput variant="warning" showCaret={false} />
+				</div>
+			</div>
+
+			<!-- Custom Configuration -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Custom Configuration</h4>
+				<div class="space-y-4">
+					<PinInput maxlength={8} separator={false} variant="info" />
+					<PinInput maxlength={3} variant="accent" />
+					<PinInput 
+						variant="success" 
+						onComplete={(value) => alert(`Completed: ${value}`)}
+					/>
+				</div>
+			</div>
+		</CardBody>
 	</Card>
 
 	<Card>
@@ -395,7 +503,81 @@
 			<CardTitle>Radio Group</CardTitle>
 			<CardDescription>Exclusive selection controls</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Basic Radio</h4>
+				<RadioGroup bind:value={selectedOption}>
+					{#each ['Option 1', 'Option 2', 'Option 3'] as option}
+						{@const id = useId()}
+						<div class="flex items-center gap-2">
+							<Radio value={option} id={id} variant="primary" />
+							<RadioLabel htmlFor={id}>{option}</RadioLabel>
+						</div>
+					{/each}
+				</RadioGroup>
+			</div>
+
+			<!-- Variants -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="space-y-4">
+					{#each ['primary', 'secondary', 'accent', 'muted'] as variant}
+						<RadioGroup>
+							{#each ['A', 'B', 'C'] as option}
+								{@const id = useId()}
+								<div class="flex items-center gap-2">
+									<Radio value={option} variant={variant as Variant} id={id} />
+									<RadioLabel htmlFor={id}>Option {option}</RadioLabel>
+								</div>
+							{/each}
+						</RadioGroup>
+					{/each}
+				</div>
+			</div>
+
+			<!-- States -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="space-y-4">
+					<!-- Disabled -->
+					<RadioGroup disabled>
+						{#each ['X', 'Y', 'Z'] as option}
+							{@const id = useId()}
+							<div class="flex items-center gap-2">
+								<Radio disabled value={option} id={id} variant="muted" />
+								<RadioLabel htmlFor={id}>Disabled {option}</RadioLabel>
+							</div>
+						{/each}
+					</RadioGroup>
+
+					<!-- Required -->
+					<RadioGroup required>
+						{#each ['1', '2', '3'] as option}
+							{@const id = useId()}
+							<div class="flex items-center gap-2">
+								<Radio value={option} id={id} variant="warning" />
+								<RadioLabel htmlFor={id}>Required {option}</RadioLabel>
+							</div>
+						{/each}
+					</RadioGroup>
+				</div>
+			</div>
+
+			<!-- Orientation -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Horizontal Layout</h4>
+				<RadioGroup orientation="horizontal">
+					{#each ['Left', 'Center', 'Right'] as option}
+						{@const id = useId()}
+						<div class="flex items-center gap-2">
+							<Radio value={option} id={id} variant="accent" />
+							<RadioLabel htmlFor={id}>{option}</RadioLabel>
+						</div>
+					{/each}
+				</RadioGroup>
+			</div>
+		</CardBody>
 	</Card>
 
 	<Card>
@@ -675,25 +857,98 @@
 
 	<Card>
 		<CardHeader>
-			<CardTitle>Switch</CardTitle>
-			<CardDescription>Toggle switch control</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
-
-	<Card>
-		<CardHeader>
 			<CardTitle>Toggle</CardTitle>
-			<CardDescription>Two-state button control</CardDescription>
+			<CardDescription>Two-state button control with claymorphic design</CardDescription>
 		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
-	</Card>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Basic Toggle</h4>
+				<div class="space-y-4">
+					<Toggle bind:checked={toggleState} />
+					<Toggle bind:checked={toggleState} variant="accent">
+						{#snippet rightLabel()}Simple Toggle{/snippet}
+					</Toggle>
+				</div>
+			</div>
 
-	<Card>
-		<CardHeader>
-			<CardTitle>Toggle Group</CardTitle>
-			<CardDescription>Group of toggleable buttons</CardDescription>
-		</CardHeader>
-		<CardBody>Coming soon...</CardBody>
+			<!-- Variants -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="space-y-4">
+					<Toggle 
+						bind:checked={toggleWifi} 
+						variant="primary"
+						leftIcon="mdi:wifi"
+						rightIcon="mdi:wifi-off"
+					>
+						{#snippet rightLabel()}Wi-Fi{/snippet}
+					</Toggle>
+
+					<Toggle 
+						bind:checked={toggleDarkMode} 
+						variant="accent"
+						leftIcon="ph:sun-bold"
+						rightIcon="ph:moon-bold"
+					>
+						{#snippet rightLabel()}Dark Mode{/snippet}
+					</Toggle>
+
+					<Toggle 
+						bind:checked={toggleNotifications} 
+						variant="success"
+						leftIcon="mdi:bell"
+						rightIcon="mdi:bell-off"
+					>
+						{#snippet rightLabel()}Notifications{/snippet}
+					</Toggle>
+				</div>
+			</div>
+
+			<!-- States -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="space-y-4">
+					<Toggle disabled variant="muted" checked={true}>
+						{#snippet rightLabel()}Disabled Toggle{/snippet}
+					</Toggle>
+
+					<Toggle disabled checked variant="muted">
+						{#snippet rightLabel()}Disabled & Checked{/snippet}
+					</Toggle>
+
+					<Toggle variant="warning" checked={true}>
+						{#snippet leftLabel()}Required{/snippet}
+						{#snippet rightLabel()}Important Setting{/snippet}
+					</Toggle>
+				</div>
+			</div>
+
+			<!-- Custom Labels -->
+			<div class="space-y-2">
+				<h4 class="text-lg font-semibold">Custom Labels</h4>
+				<div class="space-y-4">
+					<Toggle variant="info" checked={false}>
+						{#snippet leftLabel()}OFF{/snippet}
+						{#snippet rightLabel()}ON{/snippet}
+					</Toggle>
+
+					<Toggle variant="error" checked={true}>
+						{#snippet leftLabel()}Inactive{/snippet}
+						{#snippet rightLabel()}Active{/snippet}
+					</Toggle>
+
+					<Toggle 
+						variant="success"
+						leftIcon="mdi:close"
+						rightIcon="mdi:check"
+						checked={true}
+					>
+						{#snippet leftLabel()}Deny{/snippet}
+						{#snippet rightLabel()}Allow{/snippet}
+					</Toggle>
+				</div>
+			</div>
+		</CardBody>
 	</Card>
 </Masonry>
