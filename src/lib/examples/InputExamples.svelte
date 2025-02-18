@@ -19,7 +19,7 @@
     import { Radio, RadioGroup, RadioLabel } from '$lib/index.js';
     import { useId } from 'bits-ui';
     import Toggle from '$lib/Toggle.svelte';
-    import { Input, NumberInput } from '$lib/input/index.js';
+    import { Input, NumberInput, PhoneInput } from '$lib/input/index.js';
     
     const fruits = [
         { value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
@@ -46,6 +46,8 @@
     let toggleWifi = $state(true);
     let toggleDarkMode = $state(false);
     let toggleNotifications = $state(true);
+    let phoneNumber = $state('');
+    let countryCode = $state('US');
     
 	let selectedFruitLabel = $derived(fruits.find(f => f.value === selectedFruit)?.label ?? 'Nothing selected');
 	let singleSliderValue = $state(50);
@@ -157,6 +159,21 @@
 					<Input placeholder="With label" label="Username" />
 					<Input type="password" placeholder="Password input" icon="mdi:lock" />
 					<Input type="email" placeholder="Email input" icon="mdi:email" iconPosition="right" />
+					<!-- Text inputs -->
+                    <Input placeholder="Basic text input" />
+                    <Input type="text" placeholder="Another text input" icon="mdi:text" />
+                    
+                    <!-- Number inputs -->
+                    <Input type="number" placeholder="Enter a number" icon="mdi:numeric" />
+                    <Input type="number" placeholder="Price" icon="mdi:currency-usd" iconPosition="right" />
+                    
+                    <!-- Email inputs -->
+                    <Input type="email" placeholder="Enter your email" icon="mdi:email" />
+                    <Input type="email" placeholder="Work email" icon="mdi:email-check" iconPosition="right" />
+                    
+                    <!-- Password inputs -->
+                    <Input type="password" placeholder="Enter password" icon="mdi:lock" />
+                    <Input type="password" placeholder="Confirm password" icon="mdi:lock-check" iconPosition="right" />
 				</div>
 			</div>
 
@@ -951,4 +968,58 @@
 			</div>
 		</CardBody>
 	</Card>
+
+    <Card>
+        <CardHeader>
+            <CardTitle>Phone Input</CardTitle>
+            <CardDescription>International phone number input with country selection</CardDescription>
+        </CardHeader>
+        <CardBody class="space-y-8">
+            <!-- Basic Examples -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold">Basic Phone Input</h4>
+                <div class="grid gap-4">
+                    <PhoneInput 
+                        bind:value={phoneNumber}
+                        label="Phone Number"
+                    />
+                    <PhoneInput 
+                        variant="accent"
+                        placeholder="Enter mobile number"
+                    />
+                </div>
+            </div>
+
+            <!-- Variants -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold">Variants</h4>
+                <div class="grid gap-4">
+                    <PhoneInput variant="primary" />
+                    <PhoneInput variant="secondary" />
+                    <PhoneInput variant="accent" />
+                    <PhoneInput variant="muted" />
+                </div>
+            </div>
+
+            <!-- Sizes -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold">Sizes</h4>
+                <div class="grid gap-4">
+                    <PhoneInput size="sm" />
+                    <PhoneInput size="md" />
+                    <PhoneInput size="lg" />
+                </div>
+            </div>
+
+            <!-- States -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold">States</h4>
+                <div class="grid gap-4">
+                    <PhoneInput disabled />
+                    <PhoneInput error />
+                    <PhoneInput required label="Required Phone" />
+                </div>
+            </div>
+        </CardBody>
+    </Card>
 </Masonry>

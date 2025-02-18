@@ -18,7 +18,7 @@
 		label = '',
 		class: className = ''
 	}: {
-		type?: 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url';
+		type?: 'text' | 'number' | 'email' | 'password' | 'tel';
 		value?: string | number;
 		oninput?: (event: Event) => void;
 		placeholder?: string;

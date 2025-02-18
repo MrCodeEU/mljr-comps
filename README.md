@@ -8,34 +8,35 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 
 - [ ] Button - Basic button with onClick
   - [ ] Button Group
-  - [ ] Icon Button
-  - [ ] Loading State
-  - [ ] Disabled State
+  - [x] Icon Button
+  - [x] Loading State
+  - [x] Disabled State
 - [ ] Text Input - Single-line text input
   - [ ] With Clear Button
-  - [ ] With Icons (left/right)
+  - [x] With Icons (left/right)
   - [ ] With Character Counter
-- [ ] Textarea - Multi-line text input
-  - [ ] Auto-resize
-  - [ ] Character Counter
+- [x] Textarea - Multi-line text input
+  - [x] Auto-resize
+  - [x] Character Counter
   - [ ] Max Length
-- [ ] Select - Dropdown option selection
-  - [ ] With Search
-  - [ ] Multi-select
-  - [ ] Option Groups
-- [ ] Checkbox - Binary selection
-  - [ ] Indeterminate State
-  - [ ] Checkbox Group
-- [ ] Radio - Single option from list
-  - [ ] Radio Group
-  - [ ] Card Radio
-- [ ] Toggle - Switch-style selection
-  - [ ] With Icons
-  - [ ] With Labels
-- [ ] Range - Slider value selection
-  - [ ] With Steps
-  - [ ] With Labels
-  - [ ] Range Group
+- [x] Select - Dropdown option selection
+  - [x] With Search
+  - [x] Multi-select
+- [x] Checkbox - Binary selection
+  - [x] Indeterminate State
+  - [x] Checkbox Group
+  - [x] Support custom Icons for states
+- [x] Radio - Single option from list
+  - [x] Radio Group
+  - [x] Support custom Icons for states
+- [x] Toggle - Switch-style selection
+  - [x] With Icons
+  - [x] With Labels
+- [x] Range - Slider value selection
+  - [x] With Steps
+  - [x] With Labels
+  - [x] Range Group
+  - [x] dual thumbs for range selection
 - [ ] File Input - File upload field
   - [ ] Drag & Drop
   - [ ] Preview
@@ -43,12 +44,12 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 - [ ] Rating - Star-based rating input
   - [ ] Custom Icons
   - [ ] Half Stars
-- [ ] OTP/PIN - Pin input with varying length
+- [x] OTP/PIN - Pin input with varying length
 - [ ] Phone Number - With Flags and +xx + validation
 - [ ] Date and Time + Range
-  - [ ] Date Picker
+  - [x] Date Picker
   - [ ] Time Picker
-  - [ ] Date Range
+  - [x] Date Range
   - [ ] Time Range
 
 ### Form Structure
