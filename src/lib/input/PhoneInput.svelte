@@ -1,14 +1,25 @@
 <script lang="ts">
     import { cn } from '$lib/utility.js';
-    import Icon from '@iconify/svelte';
     import { Input } from './index.js';
     import ComboBox from '../ComboBox.svelte';
     import { countries } from './countries.js';
-    import type { Item } from '../ComboBox.svelte';
+
+    interface Item {
+        value: string;
+        label: string;
+        selectedLabel: string;
+        icon: string;
+    }
+    import { 
+        AsYouType,
+        validatePhoneNumberLength,
+        isValidPhoneNumber,
+        type CountryCode 
+    } from 'libphonenumber-js';
 
     let {
         value = $bindable(''),
-        countryValue = $bindable('US'), // Set default country to US
+        countryValue = $bindable('US'),
         variant = 'primary',
         size = 'md' as 'md' | 'sm' | 'lg',
         disabled = false,
@@ -19,8 +30,10 @@
         class: className = ''
     } = $props();
 
-    let selectedCountryItem = $state<Item | null>(null);
+    let rawInput = $state('');
     let formattedValue = $state('');
+    let validationError = $state('');
+    let selectedCountryItem = $state<Item | null>(null);
 
     // Create items list for ComboBox
     const countryItems = countries.map(country => ({
@@ -30,27 +43,50 @@
         icon: country.flag
     }));
 
-    // Update selectedCountryItem immediately when countryValue changes
+    // Handle formatting and validation when input or country changes
     $effect(() => {
-        const selectedCountry = countryItems.find(item => item.value === countryValue);
-        selectedCountryItem = selectedCountry ?? null;
+        const formatter = new AsYouType(countryValue as CountryCode);
+        formattedValue = formatter.input(rawInput);
         
-        // Update formatted value when country changes
-        if (selectedCountry && value) {
-            const country = countries.find(c => c.code === countryValue);
-            formattedValue = country ? `+${country.dialCode} ${value}` : value;
+        const phoneNumber = formatter.getNumber();
+        if (phoneNumber) {
+            const isValid = validatePhoneNumber(phoneNumber.number);
+            error = !isValid;
+            value = isValid ? phoneNumber.number : value;
+        } else {
+            const isValid = validatePhoneNumber(undefined);
+            error = !isValid;
+            value = '';
         }
     });
 
-    // Update the formatted phone number when value or country changes
+    // Update selected country
     $effect(() => {
-        const country = countries.find(c => c.code === countryValue);
-        if (country && value) {
-            formattedValue = `+${country.dialCode} ${value}`;
-        } else {
-            formattedValue = value;
-        }
+        selectedCountryItem = countryItems.find(item => item.value === countryValue) ?? null;
     });
+
+    function validatePhoneNumber(phoneNumber: string | undefined) {
+        if (!phoneNumber) {
+            validationError = required ? 'Phone number is required' : '';
+            return !required;
+        }
+
+        const validationResult = validatePhoneNumberLength(phoneNumber, countryValue as CountryCode);
+        if (validationResult) {
+            validationError = validationResult === 'TOO_SHORT' ? 'Phone number is too short' :
+                            validationResult === 'TOO_LONG' ? 'Phone number is too long' :
+                            'Invalid phone number length';
+            return false;
+        }
+
+        if (!isValidPhoneNumber(phoneNumber, countryValue as CountryCode)) {
+            validationError = 'Invalid phone number for selected country';
+            return false;
+        }
+
+        validationError = '';
+        return true;
+    }
 
     const sizeClasses = {
         sm: 'h-8',
@@ -85,7 +121,7 @@
         <div class="flex-1">
             <Input
                 type="tel"
-                bind:value
+                bind:value={rawInput}
                 variant={variant as Variant}
                 {size}
                 {disabled}
@@ -98,13 +134,13 @@
         </div>
     </div>
 
-    {#if error && typeof error === 'string'}
-        <p class="mt-1 text-sm text-error">{error}</p>
+    {#if validationError}
+        <p class="mt-1 text-sm text-error">{validationError}</p>
     {/if}
 
-    {#if formattedValue}
+    {#if value}
         <p class="mt-1 text-sm text-neutral/70">
-            Formatted: {formattedValue}
+            {countryValue} Format: {formattedValue}
         </p>
     {/if}
 </div>

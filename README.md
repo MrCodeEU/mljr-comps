@@ -46,6 +46,8 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Half Stars
 - [x] OTP/PIN - Pin input with varying length
 - [ ] Phone Number - With Flags and +xx + validation
+  - [x] Flags
+  - [ ] validation
 - [ ] Date and Time + Range
   - [x] Date Picker
   - [ ] Time Picker

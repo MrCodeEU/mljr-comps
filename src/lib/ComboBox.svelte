@@ -9,16 +9,15 @@
 		selectedLabel?: string;
 		icon?: string;
 		disabled?: boolean;
+		type?: 'single' | 'multiple';
 	};
 
 	type SingleProps = Omit<WithoutChild<Combobox.RootProps>, 'value'> & {
-		type?: 'single';
 		value?: string;
 		items: Item[];
 	};
 
 	type MultipleProps = Omit<WithoutChild<Combobox.RootProps>, 'value'> & {
-		type: 'multiple';
 		value?: string[];
 		items: Item[];
 	};
@@ -30,6 +29,7 @@
 		viewportClass?: string;
 		inputClass?: string;
 		contentClass?: string;
+		disabled?: boolean;
 		class?: string;
 	};
 
@@ -44,6 +44,7 @@
 		inputClass = '',
 		contentClass = '',
 		class: className = '',
+		disabled = false,
 		type = 'single',
 		value = $bindable<string | string[] | undefined>(undefined),
 		...restProps
@@ -112,13 +113,15 @@
 	});
 
 	let selected = $derived(
-		type === 'single' ? value === items[0].value : (value as string[]).includes(items[0].value)
+		type === 'single' 
+			? value === (items[0]?.value ?? '') 
+			: Array.isArray(value) && value.includes(items[0]?.value ?? '')
 	);
 </script>
 
 <Combobox.Root
 	{...restProps}
-	{type}
+	type={type}
 	{value}
 	bind:open
 	onOpenChange={(o) => {
@@ -141,13 +144,20 @@
 				icon ? 'pr-10 pl-10' : 'px-4',
 				variantClasses[variant as keyof typeof variantClasses],
 				'clay-inset',
+				        disabled ? 'cursor-not-allowed' : 'cursor-pointer',
 				inputClass
 			)}
+			disabled={disabled}
 		>
 			{inputText}
 		</Combobox.Input>
 		<div class="absolute end-3 top-1/2 -translate-y-1/2">
-			<Combobox.Trigger class="flex items-center justify-center">
+			<Combobox.Trigger class={cn(
+        "flex items-center justify-center",
+        disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+    )}
+												{disabled}
+			>
 				<Icon icon="mdi:chevron-down" class="size-5" />
 			</Combobox.Trigger>
 		</div>
