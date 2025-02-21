@@ -141,6 +141,7 @@
 			class={cn(
 				'inline-flex h-10 w-full truncate rounded-xl transition-colors',
 				'focus:ring-2 focus:ring-offset-2 focus:outline-none',
+				'text-black dark:text-white',
 				icon ? 'pr-10 pl-10' : 'px-4',
 				variantClasses[variant as keyof typeof variantClasses],
 				'clay-inset',
@@ -174,7 +175,7 @@
 			<Combobox.ScrollUpButton class="flex w-full items-center justify-center py-1">
 				<Icon icon="mdi:chevron-double-up" class="size-4" />
 			</Combobox.ScrollUpButton>
-			<Combobox.Viewport class={cn('max-h-[600px] overflow-y-auto p-1', viewportClass)}>
+			<Combobox.Viewport class={cn('max-h-[50vh] overflow-y-auto p-1', viewportClass)}>
 				{#each filteredItems as item (item.value)}
 					<Combobox.Item
 						value={item.value}

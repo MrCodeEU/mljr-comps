@@ -12,7 +12,7 @@
 
 	let refreshLayout: () => void;
 </script>
-
+<main class="bg-white dark:bg-purple-950">
 <div class="absolute top-4 right-4 z-10">
 	<ThemeToggle leftLabel="Light Mode" rightLabel="Dark Mode" />
 </div>
@@ -59,3 +59,4 @@
 		</CardBody>
 	</Card>
 </div>
+</main>

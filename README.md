@@ -7,7 +7,6 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ### Basic Inputs
 
 - [ ] Button - Basic button with onClick
-  - [ ] Button Group
   - [x] Icon Button
   - [x] Loading State
   - [x] Disabled State
