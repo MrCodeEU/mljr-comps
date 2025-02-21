@@ -14,6 +14,7 @@
 	import { Tooltip, Button } from '$lib/index.js';
 	import Icon from '@iconify/svelte';
 	import { Popover } from '$lib/popover/index.js';
+	import { toast } from '$lib/toast/index.js';
 
 	async function handleDelete() {
 		// Simulate async operation
@@ -308,16 +309,75 @@
 					{/snippet}
 					<div class="p-4">
 						<div class="flex items-center gap-3">
-							<div class="rounded-full bg-muted p-2">
+							<div class="bg-muted rounded-full p-2">
 								<Icon icon="mdi:user" class="size-6" />
 							</div>
 							<div>
 								<h4 class="font-semibold">John Doe</h4>
-								<p class="text-sm text-muted-foreground">john@example.com</p>
+								<p class="text-muted-foreground text-sm">john@example.com</p>
 							</div>
 						</div>
 					</div>
 				</Popover>
+			</div>
+		</CardBody>
+	</Card>
+
+	<Card>
+		<CardHeader>
+			<CardTitle>Toast</CardTitle>
+			<CardDescription>Notification messages</CardDescription>
+		</CardHeader>
+		<CardBody>
+			<div class="flex flex-wrap gap-4">
+				<Button variant="primary" onclick={() => toast.primary('Primary toast message')}>
+					Primary Toast
+				</Button>
+
+				<Button variant="success" onclick={() => toast.success('Success toast message')}>
+					Success Toast
+				</Button>
+
+				<Button variant="error" onclick={() => toast.error('Error toast message')}>
+					Error Toast
+				</Button>
+
+				<Button variant="warning" onclick={() => toast.warning('Warning toast message')}>
+					Warning Toast
+				</Button>
+
+				<Button variant="info" onclick={() => toast.info('Info toast message')}>Info Toast</Button>
+
+				<Button
+					variant="accent"
+					onclick={() => {
+						toast.promise(
+							new Promise((resolve, reject) => {
+								setTimeout(() => resolve('Data loaded'), 2000);
+							}),
+							{
+								loading: 'Loading data...',
+								success: 'Data loaded successfully!',
+								error: 'Failed to load data'
+							}
+						);
+					}}
+				>
+					Promise Toast
+				</Button>
+
+				<Button
+					variant="muted"
+					onclick={() => {
+						toast.custom('Custom toast', {
+							variant: 'accent',
+							duration: 8000,
+							icon: 'mdi:star'
+						});
+					}}
+				>
+					Custom Toast
+				</Button>
 			</div>
 		</CardBody>
 	</Card>

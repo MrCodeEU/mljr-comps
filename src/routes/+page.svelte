@@ -9,10 +9,12 @@
 	import DisplayExamples from '$lib/examples/DisplayExamples.svelte';
 	import LayoutExamples from '$lib/examples/LayoutExamples.svelte';
 	import OverlayExamples from '$lib/examples/OverlayExamples.svelte';
+	import Toast from '$lib/toast/Toast.svelte';
 
 	let refreshLayout: () => void;
 </script>
 <main class="bg-white dark:bg-purple-950">
+<Toast />
 <div class="absolute top-4 right-4 z-10">
 	<ThemeToggle leftLabel="Light Mode" rightLabel="Dark Mode" />
 </div>
