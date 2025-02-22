@@ -4,24 +4,16 @@
 
 	let {
 		value = $bindable(0),
+		min = 0,
 		max = 100,
 		variant = 'primary',
 		showLabel = false,
+		showValue = false, // New prop to toggle between value/percentage
 		labelPosition = 'center',
 		size = 'md',
 		orientation = 'horizontal',
-		formatLabel = (v: number) => `${Math.round((v / max) * 100)}%`,
+		formatLabel = undefined, // Remove default implementation here
 		class: className = ''
-	}: {
-		value?: number;
-		max?: number;
-		variant?: Variant;
-		showLabel?: boolean;
-		labelPosition?: 'left' | 'right' | 'center';
-		size?: 'sm' | 'md' | 'lg' | 'xl';
-		orientation?: 'horizontal' | 'vertical';
-		formatLabel?: (value: number) => string;
-		class?: string;
 	} = $props();
 
 	const variantClasses = {
@@ -49,12 +41,34 @@
 		center: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10'
 	};
 
+	// Convert any value within min-max range to 0-100 percentage
+	const normalizeToPercentage = (value: number, min: number, max: number) => {
+		// First clamp the value between min and max
+		const clampedValue = Math.max(min, Math.min(value, max));
+		// Then convert to percentage
+		return ((clampedValue - min) / (max - min)) * 100;
+	};
+
 	$effect(() => {
 		// Ensure value stays within bounds
-		value = Math.max(0, Math.min(value, max));
+		value = Math.max(min, Math.min(value, max));
 	});
 
-	// Update container styles to be taller for vertical
+	// Get the normalized percentage for the current value
+	let normalizedValue = $derived.by(() => normalizeToPercentage(value, min, max));
+
+	// Default format functions
+	const formatPercentage = (v: number, min: number, max: number) => 
+		`${Math.round(normalizeToPercentage(v, min, max))}%`;
+	
+	const formatActualValue = (v: number) => `${Math.round(v)}`;
+
+	// Use custom formatLabel or default based on showValue
+	const getLabel = (v: number, min: number, max: number) => {
+		if (formatLabel) return formatLabel(v, min, max);
+		return showValue ? formatActualValue(v) : formatPercentage(v, min, max);
+	};
+
 	const containerStyles = $derived({
 		horizontal: 'w-full',
 		vertical: 'flex-col h-[300px] items-center'
@@ -63,17 +77,17 @@
 
 <div class={cn('flex', containerStyles, className)}>
 	{#if showLabel && !['center'].includes(labelPosition)}
-		<span class={cn('text-sm font-medium', labelClasses[labelPosition])}>
-			{formatLabel(value)}
+		<span class={cn('text-sm font-medium', labelClasses[labelPosition as keyof typeof labelClasses])}>
+			{getLabel(value, min, max)}
 		</span>
 	{/if}
 
 	<Progress.Root
-		{value}
-		{max}
+		value={normalizedValue}
+		max={100}
 		class={cn(
 			'relative overflow-hidden clay-inset bg-black/5',
-			sizeClasses[size],
+			sizeClasses[size as keyof typeof sizeClasses],
 			orientation === 'vertical' ? 'h-full' : 'w-full'
 		)}
 	>
@@ -82,10 +96,10 @@
 				class={cn(
 					'text-sm font-medium transition-all duration-300',
 					labelClasses[labelPosition],
-					value / max < 0.5 ? 'text-foreground' : 'text-background'
+					normalizedValue < 50 ? 'text-foreground' : 'text-background'
 				)}
 			>
-				{formatLabel(value)}
+				{getLabel(value, min, max)}
 			</span>
 		{/if}
 
@@ -97,8 +111,8 @@
 			)}
 			style={
 				orientation === 'vertical'
-					? `transform: translateY(${100 - (100 * (value ?? 0)) / max}%)`
-					: `transform: translateX(-${100 - (100 * (value ?? 0)) / max}%)`
+					? `transform: translateY(${100 - normalizedValue}%)`
+					: `transform: translateX(-${100 - normalizedValue}%)`
 			}
 		></div>
 	</Progress.Root>

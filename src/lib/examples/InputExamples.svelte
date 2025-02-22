@@ -19,7 +19,7 @@
     import { Radio, RadioGroup, RadioLabel } from '$lib/index.js';
     import { useId } from 'bits-ui';
     import Toggle from '$lib/Toggle.svelte';
-    import { Input, NumberInput, PhoneInput } from '$lib/input/index.js';
+    import { Input, NumberInput, PhoneInput, PasswordWithStrength } from '$lib/input/index.js';
     
     const fruits = [
         { value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
@@ -219,6 +219,13 @@
 					<NumberInput disabled label="Disabled number input" />
 				</div>
 			</div>
+
+			<!-- Passwordstrenght -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Password Strength</h4>
+				<div class="grid gap-4">
+					<PasswordWithStrength />
+				</div>
 		</CardBody>
 	</Card>
 
