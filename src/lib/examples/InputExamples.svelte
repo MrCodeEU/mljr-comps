@@ -148,7 +148,7 @@
 	<Card>
 		<CardHeader>
 			<CardTitle>Input</CardTitle>
-			<CardDescription>Text input fields with claymorphism design</CardDescription>
+			<CardDescription>Text input fields with claymorphism design and validation</CardDescription>
 		</CardHeader>
 		<CardBody class="space-y-8">
 			<!-- Basic Examples -->
@@ -157,23 +157,126 @@
 				<div class="grid gap-4">
 					<Input placeholder="Basic input" />
 					<Input placeholder="With label" label="Username" />
-					<Input type="password" placeholder="Password input" icon="mdi:lock" />
-					<Input type="email" placeholder="Email input" icon="mdi:email" iconPosition="right" />
-					<!-- Text inputs -->
-                    <Input placeholder="Basic text input" />
-                    <Input type="text" placeholder="Another text input" icon="mdi:text" />
-                    
-                    <!-- Number inputs -->
-                    <Input type="number" placeholder="Enter a number" icon="mdi:numeric" />
-                    <Input type="number" placeholder="Price" icon="mdi:currency-usd" iconPosition="right" />
-                    
-                    <!-- Email inputs -->
-                    <Input type="email" placeholder="Enter your email" icon="mdi:email" />
-                    <Input type="email" placeholder="Work email" icon="mdi:email-check" iconPosition="right" />
-                    
-                    <!-- Password inputs -->
-                    <Input type="password" placeholder="Enter password" icon="mdi:lock" />
-                    <Input type="password" placeholder="Confirm password" icon="mdi:lock-check" iconPosition="right" />
+						<Input 
+						type="password" 
+						placeholder="Password input with toggle" 
+					/>
+					<Input 
+						type="email" 
+						placeholder="Email with validation" 
+						icon="mdi:email" 
+						iconPosition="right" 
+						required
+					/>
+				</div>
+			</div>
+
+				<!-- Add this new section after Basic Examples and before existing Validation Examples -->
+				<div class="space-y-4">
+					<h4 class="text-lg font-semibold">Validation Timing</h4>
+					<div class="grid gap-4">
+						<Input 
+							type="email" 
+							placeholder="Validates as you type" 
+							label="Live Email Validation"
+							required
+							validateOn="input"
+							icon="mdi:email"
+						/>
+						<Input 
+							type="email" 
+							placeholder="Validates when you finish" 
+							label="Blur Email Validation"
+							required
+							validateOn="blur"
+							icon="mdi:email"
+						/>
+						<Input 
+							type="text" 
+							placeholder="Enter a phone number" 
+							label="Pattern (XXX-XXX-XXXX)"
+							pattern="^\d{3}-\d{3}-\d{4}$"
+							validateOn="blur"
+							icon="mdi:phone"
+						/>
+						<Input 
+							type="text" 
+							placeholder="Type letters only" 
+							label="Live Pattern Check"
+							pattern="^[A-Za-z\s]+$"
+							validateOn="input"
+							icon="mdi:alphabetical"
+						/>
+					</div>
+				</div>
+
+			<!-- Validation Examples -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Input Validation</h4>
+				<div class="grid gap-4">
+					<Input 
+						type="email" 
+						placeholder="Validates while typing" 
+						label="Email Address (Live Validation)"
+						required
+						icon="mdi:email"
+						validateOn="input"
+					/>
+					<Input 
+						type="email" 
+						placeholder="Validates on blur" 
+						label="Email Address (Blur Validation)"
+						required
+						icon="mdi:email"
+						validateOn="blur"
+					/>
+					<Input 
+						type="number" 
+						placeholder="Validates on blur" 
+						label="Amount"
+						icon="mdi:currency-usd"
+						required
+						validateOn="blur"
+					/>
+					<Input 
+						type="text" 
+						placeholder="Letters only (Live)" 
+						label="Name"
+						pattern="^[A-Za-z\s]+$"
+						icon="mdi:account"
+						validateOn="input"
+					/>
+				</div>
+			</div>
+
+			<!-- Clickable Icons -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Clickable Icons</h4>
+				<div class="grid gap-4">
+					<Input 
+						type="text" 
+						placeholder="Click the search icon" 
+						icon="mdi:magnify"
+						onIconClick={() => alert('Search clicked!')}
+					/>
+					<Input 
+						type="text" 
+						placeholder="Right positioned icon" 
+						icon="mdi:content-copy"
+						iconPosition="right"
+						onIconClick={() => alert('Copy clicked!')}
+					/>
+					<Input 
+						type="password" 
+						placeholder="Password with toggle" 
+						label="Password"
+					/>
+					<Input 
+						type="password" 
+						placeholder="Custom password icon action" 
+						icon="mdi:lock"
+						onIconClick={() => alert('Custom password action!')}
+					/>
 				</div>
 			</div>
 
@@ -518,8 +621,7 @@
 						onComplete={(value) => alert(`Completed: ${value}`)}
 					/>
 				</div>
-			</div>
-		</CardBody>
+				</CardBody>
 	</Card>
 
 	<Card>

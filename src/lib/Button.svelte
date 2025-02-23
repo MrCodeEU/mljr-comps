@@ -6,12 +6,14 @@
 	let {
 		variant = 'primary',
 		active = true,
+		size = 'md',
 		class: className = '',
 		onclick,
 		children
 	}: {
 		variant?: Variant;
 		active?: boolean;
+		size?: 'sm' | 'md' | 'lg';
 		class?: string;
 		onclick?: (event: MouseEvent) => void;
 		children?: Snippet;
@@ -30,15 +32,23 @@
 		warning: 'bg-warning text-black',
 		info: 'bg-info text-black'
 	};
+
+	// Add size classes mapping
+	const sizeClasses = {
+		sm: 'p-1 text-xs',
+		md: 'p-2 text-sm',
+		lg: 'p-3 text-base'
+	};
 </script>
 
 <Button.Root
 	class={cn(
-		'clay flex p-3 transition-all hover:translate-y-0.5 active:translate-y-0.5',
+		'clay flex transition-all hover:translate-y-0.5 active:translate-y-0.5',
 		'flex flex-row items-center justify-center',
-		active ? 'cursor-pointer' : 'cursor-not-allowed',
-		active ? 'active:clay-inset hover:shadow-none' : 'active:clay',
+		active ? 'cursor-pointer' : 'cursor-not-allowed opacity-60',
+		active ? 'active:clay-inset hover:shadow-none' : 'active:clay bg-opacity-75',
 		variantClasses[variant as keyof typeof variantClasses],
+		sizeClasses[size as keyof typeof sizeClasses],
 		className
 	)}
 	{onclick}

@@ -16,7 +16,10 @@
 		readonly = false,
 		error = false,
 		label = '',
-		class: className = ''
+		class: className = '',
+		pattern = '',
+		onIconClick = undefined,
+		validateOn = 'input', // Add this new prop
 	}: {
 		type?: 'text' | 'number' | 'email' | 'password' | 'tel';
 		value?: string | number;
@@ -29,9 +32,12 @@
 		disabled?: boolean;
 		required?: boolean;
 		readonly?: boolean;
-		error?: boolean;
+		error?: boolean | string;
 		label?: string;
 		class?: string;
+		pattern?: string;
+		onIconClick?: (event: MouseEvent) => void;
+		validateOn?: 'input' | 'blur';  // Add this new type
 	} = $props();
 
 	const variantClasses = {
@@ -56,6 +62,62 @@
 		left: icon ? 'pl-10 pr-4' : 'px-4',
 		right: icon ? 'pr-10 pl-4' : 'px-4'
 	};
+
+	let showPassword = $state(false);
+	let validationError = $state<string | false>(false);
+	let isDirty = $state(false);
+
+	function validateInput(value: string | number) {
+		if (value === '' || value === undefined) return required ? 'This field is required' : false;
+
+		switch (type) {
+			case 'email':
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				return !emailRegex.test(String(value)) ? 'Please enter a valid email address' : false;
+			case 'number':
+				return isNaN(Number(value)) ? 'Please enter a valid number' : false;
+			case 'text':
+				if (pattern) {
+					const regex = new RegExp(pattern);
+					return !regex.test(String(value)) ? 'Input does not match the required pattern' : false;
+				}
+				return false;
+			default:
+				return false;
+		}
+	}
+
+	function handleInput(event: Event) {
+		oninput(event);
+		isDirty = true;
+		if (validateOn === 'input') {
+			validationError = validateInput(value);
+			error = validationError;
+		}
+	}
+
+	function handleBlur() {
+		if (validateOn === 'blur' && isDirty) {
+			validationError = validateInput(value);
+			error = validationError;
+		}
+	}
+
+	function handleIconClick(event: MouseEvent) {
+		if (type === 'password' && !onIconClick) {
+			showPassword = !showPassword;
+			icon = showPassword ? 'mdi:eye-off' : 'mdi:eye';
+		} else if (onIconClick) {
+			onIconClick(event);
+		}
+	}
+
+	$effect(() => {
+		if (type === 'password' && !icon) {
+			icon = 'mdi:eye';
+			iconPosition = 'right';
+		}
+	});
 </script>
 
 <div class="relative w-full">
@@ -72,14 +134,19 @@
 		{#if icon && iconPosition === 'left'}
 			<Icon
 				{icon}
-				class="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/50"
+				class={cn(
+					"absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/50",
+					onIconClick || type === 'password' ? "cursor-pointer hover:text-foreground" : ""
+				)}
+				onclick={handleIconClick}
 			/>
 		{/if}
 
 		<input
-			{type}
+			type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
 			bind:value
-			oninput={oninput}
+			oninput={handleInput}
+			onblur={handleBlur}
 			{placeholder}
 			{disabled}
 			{required}
@@ -89,11 +156,11 @@
 				'w-full clay-inset transition-all duration-200',
 				'placeholder:text-foreground/50',
 				'focus:outline-none focus:ring-2 focus:ring-offset-2',
-				error && 'ring-2 ring-error ring-offset-2',
+				(error || validationError) && 'ring-2 ring-error ring-offset-2',
 				disabled && 'cursor-not-allowed opacity-50',
 				sizeClasses[size],
 				paddingClasses[iconPosition],
-				variantClasses[error ? 'error' : (variant as keyof typeof variantClasses)],
+				variantClasses[(error || validationError) ? 'error' : (variant as keyof typeof variantClasses)],
 				className
 			)}
 		/>
@@ -101,12 +168,16 @@
 		{#if icon && iconPosition === 'right'}
 			<Icon
 				{icon}
-				class="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/50"
+				class={cn(
+					"absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/50",
+					onIconClick || type === 'password' ? "cursor-pointer hover:text-foreground" : ""
+				)}
+				onclick={handleIconClick}
 			/>
 		{/if}
 	</div>
 
-	{#if error && typeof error === 'string'}
-		<p class="mt-1 text-sm text-error">{error}</p>
+	{#if validationError || (error && typeof error === 'string')}
+		<p class="mt-1 text-sm text-error">{validationError || error}</p>
 	{/if}
 </div>

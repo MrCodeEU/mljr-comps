@@ -15,12 +15,14 @@
 		required = false,
 		readonly = false,
 		error = false,
+		errorMessage = 'Please enter a valid number',
 		label = '',
 		class: className = ''
 	} = $props();
 
 	// Internal string value for the input
 	let inputValue = $state(value.toString());
+	let currentErrorMessage = $state(errorMessage);
 
 	// Update input value when external value changes
 	$effect(() => {
@@ -30,16 +32,33 @@
 	// Handle input changes
 	function handleInput(event: Event) {
 		const input = event.target as HTMLInputElement;
-		const newValue = input.value === '' ? '' : parseFloat(input.value);
+		const rawValue = input.value;
 		
-		if (newValue === '') {
-			value = 0;
+		if (rawValue === '' || rawValue === '-' || rawValue === '.' || rawValue === ',') {
+			inputValue = rawValue;
+			error = true;
+			currentErrorMessage = 'Please enter a complete number';
 			return;
 		}
 
-		if (!isNaN(newValue)) {
-			value = clampValue(newValue);
+		// Allow either dot or comma as decimal separator
+		const sanitizedValue = rawValue.replace(/,/g, '.');
+		const hasValidChars = /^-?\d*\.?\d*$/.test(sanitizedValue);
+
+		if (hasValidChars) {
+			const newValue = parseFloat(sanitizedValue);
+			if (!isNaN(newValue)) {
+				value = clampValue(newValue);
+				inputValue = rawValue; // Keep original input format
+				error = false;
+				currentErrorMessage = errorMessage;
+				return;
+			}
 		}
+		
+		error = true;
+		currentErrorMessage = 'Please enter a valid number';
+		inputValue = rawValue;
 	}
 
 	function clampValue(val: number): number {
@@ -55,16 +74,16 @@
 	}
 
 	const buttonSizeClasses = {
-		sm: 'h-4 w-4',
-		md: 'h-5 w-5',
-		lg: 'h-6 w-6'
+		sm: 'h-6 w-6',
+		md: 'h-8 w-8',
+		lg: 'h-10 w-10'
 	};
 </script>
 
-<div class="flex w-full gap-2">
+<div class="flex w-full items-end gap-2">
 	<Input
 		type="text"
-		value={inputValue}
+		bind:value={inputValue}
 		oninput={handleInput}
 		variant={variant as Variant}
 		size = {size as "md" | "sm" | "lg" | undefined}
@@ -72,6 +91,7 @@
 		{required}
 		{readonly}
 		{error}
+		errorMessage={currentErrorMessage}
 		{label}
 		class={className}
 	/>
@@ -81,18 +101,18 @@
 			<Button
 				variant={variant as Variant}
 				onclick={increment}
-				active={!disabled || value < max}
+				active={!disabled && value < max}
 				class={buttonSizeClasses[size as keyof typeof buttonSizeClasses]}
 			>
-				<Icon icon="mdi:chevron-up" class="h-full w-full" />
+				<Icon icon="mdi:chevron-up" class="size-6 -m-3"/>
 			</Button>
 			<Button
 				variant={variant as Variant}
 				onclick={decrement}
-				active={!disabled || value > min}
+				active={!disabled && value > min}
 				class={buttonSizeClasses[size as keyof typeof buttonSizeClasses]}
 			>
-				<Icon icon="mdi:chevron-down" class="h-full w-full" />
+				<Icon icon="mdi:chevron-down" class="size-6 -m-3"  />
 			</Button>
 		</div>
 	{/if}
