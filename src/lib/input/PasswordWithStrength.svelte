@@ -44,10 +44,11 @@
 
 	// Find the longest label and calculate its width
 	let textWidth = $derived.by(() => {
-		const canvas = document.createElement('canvas');
+		const canvas = typeof document !== 'undefined' ? document.createElement('canvas') : null;
+		if (!canvas) return '30%';
 		const context = canvas.getContext('2d');
 		if (!context) return '30%';
-		
+				
 		const style = getComputedStyle(document.body);
 		context.font = `${style.fontSize} ${style.fontFamily}`;
 		

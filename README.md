@@ -6,14 +6,12 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 
 ### Basic Inputs
 
-- [ ] Button - Basic button with onClick
+- [x] Button - Basic button with onClick
   - [x] Icon Button
   - [x] Loading State
   - [x] Disabled State
-- [ ] Text Input - Single-line text input
-  - [ ] With Clear Button
+- [x] Text Input - Single-line text input
   - [x] With Icons (left/right)
-  - [ ] With Character Counter
 - [x] Textarea - Multi-line text input
   - [x] Auto-resize
   - [x] Character Counter
@@ -44,9 +42,9 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Custom Icons
   - [ ] Half Stars
 - [x] OTP/PIN - Pin input with varying length
-- [ ] Phone Number - With Flags and +xx + validation
+- [x] Phone Number - With Flags and +xx + validation
   - [x] Flags
-  - [ ] validation
+  - [x] validation
 - [ ] Date and Time + Range
   - [x] Date Picker
   - [ ] Time Picker

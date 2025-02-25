@@ -4,52 +4,50 @@
 		CardHeader,
 		CardTitle,
 		CardDescription,
-		CardBody,
-		DateRangeCalendar
+		CardBody
 	} from '$lib/index.js';
 	import Masonry from '$lib/Masonry.svelte';
 	import Button from '$lib/Button.svelte';
 	import Icon from '@iconify/svelte';
 	import { Checkbox, CheckboxLabel, CheckboxGroup } from '$lib/index.js';
-	import { DatePicker, DateRangePicker, DatePickerCalendar } from '$lib/index.js';
-	import { today, getLocalTimeZone, CalendarDate, type DateValue } from '@internationalized/date';
-	import type { DateRange } from 'bits-ui';
+	import { DatePicker } from '$lib/index.js';
 	import { Select, SelectContent, SelectItem, Slider } from '$lib/index.js';
-    import PinInput from '$lib/pin-input/PinInput.svelte';
-    import { Radio, RadioGroup, RadioLabel } from '$lib/index.js';
-    import { useId } from 'bits-ui';
-    import Toggle from '$lib/Toggle.svelte';
-    import { Input, NumberInput, PhoneInput, PasswordWithStrength } from '$lib/input/index.js';
-    
-    const fruits = [
-        { value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
-        { value: 'banana', label: 'Banana', icon: 'lucide:banana' },
-        { value: 'orange', label: 'Orange', icon: 'icon-park-outline:orange-one' },
-        { value: 'mango', label: 'Mango', icon: 'fluent-emoji-high-contrast:mango' },
-        { value: 'grape', label: 'Grape', icon: 'mdi:fruit-grapes' }
-    ];
+	import PinInput from '$lib/pin-input/PinInput.svelte';
+	import { Radio, RadioGroup, RadioLabel } from '$lib/index.js';
+	import { useId } from 'bits-ui';
+	import Toggle from '$lib/Toggle.svelte';
+	import { Input, NumberInput, PhoneInput, PasswordWithStrength } from '$lib/input/index.js';
 
-    const colors = [
-        { value: 'red', label: 'Red', icon: 'mdi:circle' },
-        { value: 'blue', label: 'Blue', icon: 'mdi:circle' },
-        { value: 'green', label: 'Green', icon: 'mdi:circle' },
-        { value: 'yellow', label: 'Yellow', icon: 'mdi:circle' },
-        { value: 'purple', label: 'Purple', icon: 'mdi:circle' }
-    ];
+	const fruits = [
+		{ value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
+		{ value: 'banana', label: 'Banana', icon: 'lucide:banana' },
+		{ value: 'orange', label: 'Orange', icon: 'icon-park-outline:orange-one' },
+		{ value: 'mango', label: 'Mango', icon: 'fluent-emoji-high-contrast:mango' },
+		{ value: 'grape', label: 'Grape', icon: 'mdi:fruit-grapes' }
+	];
 
-    let singleDate = $state<DateValue>();
-	let dateRange = $state<DateRange>({ start: undefined, end: undefined });
+	const colors = [
+		{ value: 'red', label: 'Red', icon: 'mdi:circle' },
+		{ value: 'blue', label: 'Blue', icon: 'mdi:circle' },
+		{ value: 'green', label: 'Green', icon: 'mdi:circle' },
+		{ value: 'yellow', label: 'Yellow', icon: 'mdi:circle' },
+		{ value: 'purple', label: 'Purple', icon: 'mdi:circle' }
+	];
+
+	let selectedDate = $state(null);	
 	let selectedFruit = $state('');
-    let selectedColors = $state<string[]>([]);
-    let selectedOption = $state('');
-    let toggleState = $state(false);
-    let toggleWifi = $state(true);
-    let toggleDarkMode = $state(false);
-    let toggleNotifications = $state(true);
-    let phoneNumber = $state('');
-    let countryCode = $state('US');
-    
-	let selectedFruitLabel = $derived(fruits.find(f => f.value === selectedFruit)?.label ?? 'Nothing selected');
+	let selectedColors = $state<string[]>([]);
+	let selectedOption = $state('');
+	let toggleState = $state(false);
+	let toggleWifi = $state(true);
+	let toggleDarkMode = $state(false);
+	let toggleNotifications = $state(true);
+	let phoneNumber = $state('');
+	let countryCode = $state('US');
+
+	let selectedFruitLabel = $derived(
+		fruits.find((f) => f.value === selectedFruit)?.label ?? 'Nothing selected'
+	);
 	let singleSliderValue = $state(50);
 	let rangeSliderLower = $state(25);
 	let rangeSliderUpper = $state(75);
@@ -157,90 +155,87 @@
 				<div class="grid gap-4">
 					<Input placeholder="Basic input" />
 					<Input placeholder="With label" label="Username" />
-						<Input 
-						type="password" 
-						placeholder="Password input with toggle" 
-					/>
-					<Input 
-						type="email" 
-						placeholder="Email with validation" 
-						icon="mdi:email" 
-						iconPosition="right" 
+					<Input type="password" placeholder="Password input with toggle" />
+					<Input
+						type="email"
+						placeholder="Email with validation"
+						icon="mdi:email"
+						iconPosition="right"
 						required
 					/>
 				</div>
 			</div>
 
-				<!-- Add this new section after Basic Examples and before existing Validation Examples -->
-				<div class="space-y-4">
-					<h4 class="text-lg font-semibold">Validation Timing</h4>
-					<div class="grid gap-4">
-						<Input 
-							type="email" 
-							placeholder="Validates as you type" 
-							label="Live Email Validation"
-							required
-							validateOn="input"
-							icon="mdi:email"
-						/>
-						<Input 
-							type="email" 
-							placeholder="Validates when you finish" 
-							label="Blur Email Validation"
-							required
-							validateOn="blur"
-							icon="mdi:email"
-						/>
-						<Input 
-							type="text" 
-							placeholder="Enter a phone number" 
-							label="Pattern (XXX-XXX-XXXX)"
-							pattern="^\d{3}-\d{3}-\d{4}$"
-							validateOn="blur"
-							icon="mdi:phone"
-						/>
-						<Input 
-							type="text" 
-							placeholder="Type letters only" 
-							label="Live Pattern Check"
-							pattern="^[A-Za-z\s]+$"
-							validateOn="input"
-							icon="mdi:alphabetical"
-						/>
-					</div>
+			<!-- Add this new section after Basic Examples and before existing Validation Examples -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Validation Timing</h4>
+				<div class="grid gap-4">
+					<Input
+						type="email"
+						placeholder="Validates as you type"
+						label="Live Email Validation"
+						required
+						validateOn="input"
+						icon="mdi:email"
+					/>
+					<Input
+						type="email"
+						placeholder="Validates when you finish"
+						label="Blur Email Validation"
+						required
+						validateOn="blur"
+						icon="mdi:email"
+					/>
+					<Input
+						type="text"
+						placeholder="Enter a phone number"
+						label="Pattern (XXX-XXX-XXXX)"
+						pattern="^\d{3}-\d{3}-\d{4}$"
+						validateOn="blur"
+						icon="mdi:phone"
+					/>
+					<Input
+						type="text"
+						placeholder="Type letters only"
+						label="Live Pattern Check"
+						pattern="^[A-Za-z\s]+$"
+						validateOn="input"
+						icon="mdi:alphabetical"
+					/>
 				</div>
+			</div>
 
 			<!-- Validation Examples -->
 			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Input Validation</h4>
 				<div class="grid gap-4">
-					<Input 
-						type="email" 
-						placeholder="Validates while typing" 
+					<Input
+						type="email"
+						placeholder="Validates while typing"
 						label="Email Address (Live Validation)"
 						required
 						icon="mdi:email"
 						validateOn="input"
 					/>
-					<Input 
-						type="email" 
-						placeholder="Validates on blur" 
+					<Input
+						type="email"
+						placeholder="Validates on blur"
 						label="Email Address (Blur Validation)"
 						required
 						icon="mdi:email"
 						validateOn="blur"
 					/>
-					<Input 
-						type="number" 
-						placeholder="Validates on blur" 
+					<Input
+						type="number"
+						placeholder="Validates on blur"
 						label="Amount"
 						icon="mdi:currency-usd"
 						required
 						validateOn="blur"
 					/>
-					<Input 
-						type="text" 
-						placeholder="Letters only (Live)" 
+					<Input
+						type="text"
+						placeholder="Letters only (Live)"
 						label="Name"
 						pattern="^[A-Za-z\s]+$"
 						icon="mdi:account"
@@ -253,27 +248,23 @@
 			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Clickable Icons</h4>
 				<div class="grid gap-4">
-					<Input 
-						type="text" 
-						placeholder="Click the search icon" 
+					<Input
+						type="text"
+						placeholder="Click the search icon"
 						icon="mdi:magnify"
 						onIconClick={() => alert('Search clicked!')}
 					/>
-					<Input 
-						type="text" 
-						placeholder="Right positioned icon" 
+					<Input
+						type="text"
+						placeholder="Right positioned icon"
 						icon="mdi:content-copy"
 						iconPosition="right"
 						onIconClick={() => alert('Copy clicked!')}
 					/>
-					<Input 
-						type="password" 
-						placeholder="Password with toggle" 
-						label="Password"
-					/>
-					<Input 
-						type="password" 
-						placeholder="Custom password icon action" 
+					<Input type="password" placeholder="Password with toggle" label="Password" />
+					<Input
+						type="password"
+						placeholder="Custom password icon action"
 						icon="mdi:lock"
 						onIconClick={() => alert('Custom password action!')}
 					/>
@@ -329,7 +320,8 @@
 				<div class="grid gap-4">
 					<PasswordWithStrength />
 				</div>
-		</CardBody>
+			</div></CardBody
+		>
 	</Card>
 
 	<Card>
@@ -464,110 +456,138 @@
 	<Card>
 		<CardHeader>
 			<CardTitle>Date Field</CardTitle>
-			<CardDescription>Date input field with claymorphic design</CardDescription>
+			<CardDescription>Date and time input fields with claymorphic design</CardDescription>
 		</CardHeader>
 		<CardBody class="space-y-8">
-			<!-- Variant Examples -->
-			<div class="space-y-2">
+			<!-- Basic Examples -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Basic Date Picker</h4>
+				<div class="grid gap-4">
+					<DatePicker 
+						bind:value={selectedDate}
+						label="Basic date" 
+						mode="date"
+					/>
+					<DatePicker 
+						label="With time"
+						mode="datetime"
+						variant="accent"
+						hourFormat="12"
+					/>
+				</div>
+			</div>
+
+			<!-- Variants -->
+			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Variants</h4>
-				<div class="flex flex-wrap gap-4">
-					<DatePicker bind:value={singleDate} variant="primary">
-						{#snippet labelSnippet()}Primary{/snippet}
-						{#snippet calendarSnippet({ months, weekdays })}
-							<DatePickerCalendar {months} {weekdays} />
-						{/snippet}
-					</DatePicker>
-
-					<DatePicker bind:value={singleDate} variant="accent">
-						{#snippet labelSnippet()}Accent{/snippet}
-						{#snippet calendarSnippet({ months, weekdays })}
-							<DatePickerCalendar {months} {weekdays} />
-						{/snippet}
-					</DatePicker>
-
-					<DatePicker bind:value={singleDate} variant="muted">
-						{#snippet labelSnippet()}Muted{/snippet}
-						{#snippet calendarSnippet({ months, weekdays })}
-							<DatePickerCalendar {months} {weekdays} />
-						{/snippet}
-					</DatePicker>
+				<div class="grid gap-4">
+					<DatePicker variant="primary" label="Primary variant" />
+					<DatePicker variant="secondary" label="Secondary variant" />
+					<DatePicker variant="accent" label="Accent variant" />
+					<DatePicker variant="muted" label="Muted variant" />
 				</div>
 			</div>
 
-			<!-- State Examples -->
-			<div class="space-y-2">
-				<h4 class="text-lg font-semibold">States</h4>
-				<div class="flex flex-wrap gap-4">
-					<DatePicker disabled variant="primary">
-						{#snippet labelSnippet()}Disabled{/snippet}
-						{#snippet calendarSnippet({ months, weekdays })}
-							<DatePickerCalendar {months} {weekdays} />
-						{/snippet}
-					</DatePicker>
-
-					<DatePicker
-						bind:value={singleDate}
-						minValue={today(getLocalTimeZone())}
-						variant="warning"
-					>
-						{#snippet labelSnippet()}Future Only{/snippet}
-						{#snippet calendarSnippet({ months, weekdays })}
-							<DatePickerCalendar {months} {weekdays} />
-						{/snippet}
-					</DatePicker>
-
-					<DatePicker variant="error">
-						{#snippet labelSnippet()}Invalid{/snippet}
-						{#snippet calendarSnippet({ months, weekdays })}
-							<DatePickerCalendar {months} {weekdays} />
-						{/snippet}
-					</DatePicker>
+				<!-- Time Formats -->
+				<div class="space-y-4">
+					<h4 class="text-lg font-semibold">Time Formats</h4>
+					<div class="grid gap-4">
+						<DatePicker 
+							mode="time"
+							label="24-hour format"
+							hourFormat="24"
+						/>
+						<DatePicker 
+							mode="time"
+							label="12-hour format"
+							hourFormat="12"
+						/>
+						<DatePicker 
+							mode="datetime"
+							label="Date & Time (24h)"
+							hourFormat="24"
+						/>
+						<DatePicker 
+							mode="datetime"
+							label="Date & Time (12h)"
+							hourFormat="12"
+						/>
+					</div>
 				</div>
-			</div>
+		
+				<!-- Time Only -->
+				<div class="space-y-4">
+					<h4 class="text-lg font-semibold">Time Only</h4>
+					<div class="grid gap-4">
+						<DatePicker 
+							mode="time"
+							label="Basic time"
+							variant="accent"
+						/>
+						<DatePicker 
+							mode="time"
+							label="With seconds"
+							variant="info"
+							showSeconds={true}
+						/>
+					</div>
+				</div>
+
+				<!-- Add this to the Card showing DatePicker examples -->
+				<div class="space-y-4">
+					<h4 class="text-lg font-semibold">Date Picker Variants</h4>
+					<div class="grid gap-4">
+						<DatePicker label="Basic Date" />
+						<DatePicker label="With Time" mode="datetime" variant="accent" />
+						<DatePicker label="Time Only" mode="time" variant="info" />
+						<DatePicker
+							label="Date Range"
+							minDate={new Date(2024, 0, 1)}
+							maxDate={new Date(2024, 11, 31)}
+							variant="success"
+						/>
+					</div>
+				</div>
+
+				<div class="space-y-4">
+					<h4 class="text-lg font-semibold">Time Format Options</h4>
+					<div class="grid gap-4">
+						<DatePicker mode="time" label="24-hour format" hourFormat="24" />
+						<DatePicker mode="time" label="12-hour format" hourFormat="12" />
+						<DatePicker mode="time" label="With seconds" showSeconds variant="accent" />
+					</div>
+				</div>
+
+				<div class="space-y-4">
+					<h4 class="text-lg font-semibold">States</h4>
+					<div class="grid gap-4">
+						<DatePicker disabled label="Disabled picker" />
+						<DatePicker required label="Required picker" Message="This field is required" />
+						<DatePicker variant="error" label="Error state" error />
+					</div>
+				</div>
+		
 		</CardBody>
 	</Card>
 
 	<Card>
 		<CardHeader>
-			<CardTitle>Date Range Field</CardTitle>
+			<CardTitle>Date Range</CardTitle>
 			<CardDescription>Date range selection with claymorphic design</CardDescription>
 		</CardHeader>
 		<CardBody class="space-y-8">
-			<!-- Basic Examples -->
-			<div class="space-y-2">
+			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Basic Range</h4>
-				<div class="flex flex-wrap gap-4">
-					<DateRangePicker value={dateRange} variant="primary">
-						{#snippet labelSnippet()}Select Range{/snippet}
-					</DateRangePicker>
-				</div>
-			</div>
-
-			<!-- Variants -->
-			<div class="space-y-2">
-				<h4 class="text-lg font-semibold">Variants</h4>
-				<div class="flex flex-wrap gap-4">
-					<DateRangePicker variant="accent">
-						{#snippet labelSnippet()}Booking Period{/snippet}
-					</DateRangePicker>
-
-					<DateRangePicker variant="success">
-						{#snippet labelSnippet()}Available Dates{/snippet}
-					</DateRangePicker>
-				</div>
-			</div>
-
-			<!-- Custom Range Examples -->
-			<div class="space-y-2">
-				<h4 class="text-lg font-semibold">With Constraints</h4>
-				<div class="flex flex-wrap gap-4">
-					<DateRangePicker variant="info" minValue={today(getLocalTimeZone())}>
-						{#snippet labelSnippet()}Future Dates Only{/snippet}
-					</DateRangePicker>
-
-					<DateRangePicker variant="warning" disabled>
-						{#snippet labelSnippet()}Disabled Range{/snippet}
-					</DateRangePicker>
+				<div class="grid gap-4">
+					<DatePicker 
+						label="Select date range"
+						format="MMM dd, yyyy"
+					/>
+					<DatePicker 
+						mode="datetime"
+						label="Date-time range"
+						format="yyyy-MM-dd HH:mm"
+					/>
 				</div>
 			</div>
 		</CardBody>
@@ -616,12 +636,10 @@
 				<div class="space-y-4">
 					<PinInput maxlength={8} separator={false} variant="info" />
 					<PinInput maxlength={3} variant="accent" />
-					<PinInput 
-						variant="success" 
-						onComplete={(value) => alert(`Completed: ${value}`)}
-					/>
+					<PinInput variant="success" onComplete={(value) => alert(`Completed: ${value}`)} />
 				</div>
-				</CardBody>
+			</div></CardBody
+		>
 	</Card>
 
 	<Card>
@@ -637,7 +655,7 @@
 					{#each ['Option 1', 'Option 2', 'Option 3'] as option}
 						{@const id = useId()}
 						<div class="flex items-center gap-2">
-							<Radio value={option} id={id} variant="primary" />
+							<Radio value={option} {id} variant="primary" />
 							<RadioLabel htmlFor={id}>{option}</RadioLabel>
 						</div>
 					{/each}
@@ -653,7 +671,7 @@
 							{#each ['A', 'B', 'C'] as option}
 								{@const id = useId()}
 								<div class="flex items-center gap-2">
-									<Radio value={option} variant={variant as Variant} id={id} />
+									<Radio value={option} variant={variant as Variant} {id} />
 									<RadioLabel htmlFor={id}>Option {option}</RadioLabel>
 								</div>
 							{/each}
@@ -671,7 +689,7 @@
 						{#each ['X', 'Y', 'Z'] as option}
 							{@const id = useId()}
 							<div class="flex items-center gap-2">
-								<Radio disabled value={option} id={id} variant="muted" />
+								<Radio disabled value={option} {id} variant="muted" />
 								<RadioLabel htmlFor={id}>Disabled {option}</RadioLabel>
 							</div>
 						{/each}
@@ -682,7 +700,7 @@
 						{#each ['1', '2', '3'] as option}
 							{@const id = useId()}
 							<div class="flex items-center gap-2">
-								<Radio value={option} id={id} variant="warning" />
+								<Radio value={option} {id} variant="warning" />
 								<RadioLabel htmlFor={id}>Required {option}</RadioLabel>
 							</div>
 						{/each}
@@ -697,12 +715,12 @@
 					{#each ['Left', 'Center', 'Right'] as option}
 						{@const id = useId()}
 						<div class="flex items-center gap-2">
-							<Radio value={option} id={id} variant="accent" />
+							<Radio value={option} {id} variant="accent" />
 							<RadioLabel htmlFor={id}>{option}</RadioLabel>
 						</div>
 					{/each}
 				</RadioGroup>
-			</div>
+				</div>
 		</CardBody>
 	</Card>
 
@@ -716,27 +734,23 @@
 			<div class="space-y-2">
 				<h4 class="text-lg font-semibold">Basic Select</h4>
 				<div class="flex flex-wrap gap-4">
-					<Select 
-						items={fruits} 
-						bind:value={selectedFruit} 
+					<Select
+						items={fruits}
+						bind:value={selectedFruit}
 						placeholder="Choose a fruit"
 						variant="primary"
 					>
 						<SelectContent>
 							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
+								<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
 
 					<div class="clay flex items-center gap-2 px-4 py-2">
 						<span>Selected: </span>
-						{#if selectedFruit && fruits.find(f => f.value === selectedFruit)?.icon}
-							<Icon icon={fruits.find(f => f.value === selectedFruit)!.icon} class="size-5" />
+						{#if selectedFruit && fruits.find((f) => f.value === selectedFruit)?.icon}
+							<Icon icon={fruits.find((f) => f.value === selectedFruit)!.icon} class="size-5" />
 						{/if}
 						<span class="font-medium">{selectedFruitLabel}</span>
 					</div>
@@ -750,11 +764,7 @@
 					<Select items={fruits} variant="secondary" placeholder="Secondary">
 						<SelectContent variant="secondary">
 							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
+								<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
@@ -762,11 +772,7 @@
 					<Select items={fruits} variant="accent" placeholder="Accent">
 						<SelectContent variant="accent">
 							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
+								<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
@@ -774,11 +780,7 @@
 					<Select items={fruits} variant="muted" placeholder="Muted">
 						<SelectContent variant="muted">
 							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
+								<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
@@ -787,77 +789,46 @@
 
 			<!-- With Icons -->
 			<div class="space-y-2"></div>
-				<h4 class="text-lg font-semibold">With Icons</h4>
-				<div class="flex flex-wrap gap-4">
-					<Select 
-						items={colors} 
-						variant="primary" 
-						icon="mdi:palette"
-						placeholder="Select color"
-					>
-						<SelectContent>
-							{#each colors as color}
-								<SelectItem 
-									value={color.value} 
-									label={color.label} 
-									icon={color.icon}
-								/>
-							{/each}
-						</SelectContent>
-					</Select>
+			<h4 class="text-lg font-semibold">With Icons</h4>
+			<div class="flex flex-wrap gap-4">
+				<Select items={colors} variant="primary" icon="mdi:palette" placeholder="Select color">
+					<SelectContent>
+						{#each colors as color}
+							<SelectItem value={color.value} label={color.label} icon={color.icon} />
+						{/each}
+					</SelectContent>
+				</Select>
 
-					<Select 
-						items={fruits} 
-						variant="accent" 
-						icon="mdi:fruit-cherries"
-						placeholder="Select fruit"
-					>
-						<SelectContent variant="accent">
-							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
-							{/each}
-						</SelectContent>
-					</Select>
-				</div>
+				<Select
+					items={fruits}
+					variant="accent"
+					icon="mdi:fruit-cherries"
+					placeholder="Select fruit"
+				>
+					<SelectContent variant="accent">
+						{#each fruits as fruit}
+							<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
+						{/each}
+					</SelectContent>
+				</Select>
+			</div>
 
 			<!-- States -->
 			<div class="space-y-2">
 				<h4 class="text-lg font-semibold">States</h4>
 				<div class="flex flex-wrap gap-4">
-					<Select 
-						items={fruits} 
-						disabled 
-						variant="muted"
-						placeholder="Disabled select"
-					>
+					<Select items={fruits} disabled variant="muted" placeholder="Disabled select">
 						<SelectContent>
 							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
+								<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
 
-					<Select 
-						items={fruits} 
-						required 
-						variant="warning"
-						placeholder="Required select"
-					>
+					<Select items={fruits} required variant="warning" placeholder="Required select">
 						<SelectContent variant="warning">
 							{#each fruits as fruit}
-								<SelectItem 
-									value={fruit.value} 
-									label={fruit.label} 
-									icon={fruit.icon}
-								/>
+								<SelectItem value={fruit.value} label={fruit.label} icon={fruit.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
@@ -868,8 +839,8 @@
 			<div class="space-y-2">
 				<h4 class="text-lg font-semibold">Multiple Selection</h4>
 				<div class="flex flex-wrap gap-4">
-					<Select 
-						items={colors} 
+					<Select
+						items={colors}
 						type="multiple"
 						bind:value={selectedColors}
 						variant="info"
@@ -877,11 +848,7 @@
 					>
 						<SelectContent variant="info">
 							{#each colors as color}
-								<SelectItem 
-									value={color.value} 
-									label={color.label} 
-									icon={color.icon}
-								/>
+								<SelectItem value={color.value} label={color.label} icon={color.icon} />
 							{/each}
 						</SelectContent>
 					</Select>
@@ -912,7 +879,14 @@
 					<Slider value={25} variant="primary" showTicks showLabels />
 					<Slider value={50} variant="secondary" showTicks showLabels />
 					<div class="flex gap-12 p-5">
-						<Slider value={75} orientation="vertical" variant="accent" showTicks showLabels showFloatingLabel />
+						<Slider
+							value={75}
+							orientation="vertical"
+							variant="accent"
+							showTicks
+							showLabels
+							showFloatingLabel
+						/>
 						<Slider value={60} orientation="vertical" variant="warning" showTicks showLabels />
 					</div>
 				</div>
@@ -922,13 +896,13 @@
 			<div class="space-y-2">
 				<h4 class="text-lg font-semibold">Range Selection</h4>
 				<div class="space-y-4">
-					<Slider 
+					<Slider
 						bind:lowerValue={rangeSliderLower}
 						bind:upperValue={rangeSliderUpper}
 						variant="primary"
-						showFloatingLabel 
+						showFloatingLabel
 					/>
-					<Slider 
+					<Slider
 						lowerValue={30}
 						upperValue={60}
 						variant="accent"
@@ -943,14 +917,8 @@
 			<div class="space-y-2">
 				<h4 class="text-lg font-semibold">Custom Steps</h4>
 				<div class="space-y-4">
-					<Slider 
-						value={50} 
-						step={10} 
-						showTicks 
-						showLabels
-						variant="info"
-					/>
-					<Slider 
+					<Slider value={50} step={10} showTicks showLabels variant="info" />
+					<Slider
 						lowerValue={200}
 						upperValue={800}
 						min={0}
@@ -969,13 +937,7 @@
 				<h4 class="text-lg font-semibold">States</h4>
 				<div class="space-y-4">
 					<Slider value={30} disabled variant="muted" showFloatingLabel />
-					<Slider 
-						lowerValue={20}
-						upperValue={60}
-						disabled 
-						variant="muted" 
-						showFloatingLabel 
-					/>
+					<Slider lowerValue={20} upperValue={60} disabled variant="muted" showFloatingLabel />
 				</div>
 			</div>
 		</CardBody>
@@ -1002,8 +964,8 @@
 			<div class="space-y-2">
 				<h4 class="text-lg font-semibold">Variants</h4>
 				<div class="space-y-4">
-					<Toggle 
-						bind:checked={toggleWifi} 
+					<Toggle
+						bind:checked={toggleWifi}
 						variant="primary"
 						leftIcon="mdi:wifi"
 						rightIcon="mdi:wifi-off"
@@ -1011,8 +973,8 @@
 						{#snippet rightLabel()}Wi-Fi{/snippet}
 					</Toggle>
 
-					<Toggle 
-						bind:checked={toggleDarkMode} 
+					<Toggle
+						bind:checked={toggleDarkMode}
 						variant="accent"
 						leftIcon="ph:sun-bold"
 						rightIcon="ph:moon-bold"
@@ -1020,8 +982,8 @@
 						{#snippet rightLabel()}Dark Mode{/snippet}
 					</Toggle>
 
-					<Toggle 
-						bind:checked={toggleNotifications} 
+					<Toggle
+						bind:checked={toggleNotifications}
 						variant="success"
 						leftIcon="mdi:bell"
 						rightIcon="mdi:bell-off"
@@ -1064,12 +1026,7 @@
 						{#snippet rightLabel()}Active{/snippet}
 					</Toggle>
 
-					<Toggle 
-						variant="success"
-						leftIcon="mdi:close"
-						rightIcon="mdi:check"
-						checked={true}
-					>
+					<Toggle variant="success" leftIcon="mdi:close" rightIcon="mdi:check" checked={true}>
 						{#snippet leftLabel()}Deny{/snippet}
 						{#snippet rightLabel()}Allow{/snippet}
 					</Toggle>
@@ -1078,57 +1035,51 @@
 		</CardBody>
 	</Card>
 
-    <Card>
-        <CardHeader>
-            <CardTitle>Phone Input</CardTitle>
-            <CardDescription>International phone number input with country selection</CardDescription>
-        </CardHeader>
-        <CardBody class="space-y-8">
-            <!-- Basic Examples -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold">Basic Phone Input</h4>
-                <div class="grid gap-4">
-                    <PhoneInput 
-                        bind:value={phoneNumber}
-                        label="Phone Number"
-                    />
-                    <PhoneInput 
-                        variant="accent"
-                        placeholder="Enter mobile number"
-                    />
-                </div>
-            </div>
+	<Card>
+		<CardHeader>
+			<CardTitle>Phone Input</CardTitle>
+			<CardDescription>International phone number input with country selection</CardDescription>
+		</CardHeader>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Basic Phone Input</h4>
+				<div class="grid gap-4">
+					<PhoneInput bind:value={phoneNumber} label="Phone Number" />
+					<PhoneInput variant="accent" placeholder="Enter mobile number" />
+				</div>
+			</div>
 
-            <!-- Variants -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold">Variants</h4>
-                <div class="grid gap-4">
-                    <PhoneInput variant="primary" />
-                    <PhoneInput variant="secondary" />
-                    <PhoneInput variant="accent" />
-                    <PhoneInput variant="muted" />
-                </div>
-            </div>
+			<!-- Variants -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Variants</h4>
+				<div class="grid gap-4">
+					<PhoneInput variant="primary" />
+					<PhoneInput variant="secondary" />
+					<PhoneInput variant="accent" />
+					<PhoneInput variant="muted" />
+				</div>
+			</div>
 
-            <!-- Sizes -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold">Sizes</h4>
-                <div class="grid gap-4">
-                    <PhoneInput size="sm" />
-                    <PhoneInput size="md" />
-                    <PhoneInput size="lg" />
-                </div>
-            </div>
+			<!-- Sizes -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Sizes</h4>
+				<div class="grid gap-4">
+					<PhoneInput size="sm" />
+					<PhoneInput size="md" />
+					<PhoneInput size="lg" />
+				</div>
+			</div>
 
-            <!-- States -->
-            <div class="space-y-4">
-                <h4 class="text-lg font-semibold">States</h4>
-                <div class="grid gap-4">
-                    <PhoneInput disabled />
-                    <PhoneInput error />
-                    <PhoneInput required label="Required Phone" />
-                </div>
-            </div>
-        </CardBody>
-    </Card>
+			<!-- States -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="grid gap-4">
+					<PhoneInput disabled />
+					<PhoneInput error />
+					<PhoneInput required label="Required Phone" />
+				</div>
+			</div>
+		</CardBody>
+	</Card>
 </Masonry>
