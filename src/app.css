@@ -13,7 +13,7 @@
     --color-success: oklch(66.08% 0.17 156.93);
     --color-warning: oklch(78.47% 0.17 82.07);
     --color-info: oklch(61.18% 0.16 257.21);
-    --clay-background: rgba(0, 0, 0, 0.005);
+    --clay-background: white;
     --clay-border-radius: 32px;
     --clay-shadow-outset: 8px 8px 16px 0 rgba(0, 0, 0, 0.25);
     --clay-shadow-inset-primary: -8px -8px 16px 0 rgba(0, 0, 0, 0.25);
@@ -33,7 +33,6 @@
     --color-success: oklch(66.08% 0.115 156.93);
     --color-warning: oklch(78.47% 0.115 82.07);
     --color-info: oklch(61.18% 0.107 257.21);
-    @apply text-white
 }
 
 @utility clay {

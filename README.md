@@ -5,36 +5,35 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Input Components
 
 ### Basic Inputs
-- [ ] Button - Basic button with onClick
-  - [ ] Button Group
-  - [ ] Icon Button
-  - [ ] Loading State
-  - [ ] Disabled State
-- [ ] Text Input - Single-line text input
-  - [ ] With Clear Button
-  - [ ] With Icons (left/right)
-  - [ ] With Character Counter
-- [ ] Textarea - Multi-line text input
-  - [ ] Auto-resize
-  - [ ] Character Counter
+
+- [x] Button - Basic button with onClick
+  - [x] Icon Button
+  - [x] Loading State
+  - [x] Disabled State
+- [x] Text Input - Single-line text input
+  - [x] With Icons (left/right)
+- [x] Textarea - Multi-line text input
+  - [x] Auto-resize
+  - [x] Character Counter
   - [ ] Max Length
-- [ ] Select - Dropdown option selection
-  - [ ] With Search
-  - [ ] Multi-select
-  - [ ] Option Groups
-- [ ] Checkbox - Binary selection
-  - [ ] Indeterminate State
-  - [ ] Checkbox Group
-- [ ] Radio - Single option from list
-  - [ ] Radio Group
-  - [ ] Card Radio
-- [ ] Toggle - Switch-style selection
-  - [ ] With Icons
-  - [ ] With Labels
-- [ ] Range - Slider value selection
-  - [ ] With Steps
-  - [ ] With Labels
-  - [ ] Range Group
+- [x] Select - Dropdown option selection
+  - [x] With Search
+  - [x] Multi-select
+- [x] Checkbox - Binary selection
+  - [x] Indeterminate State
+  - [x] Checkbox Group
+  - [x] Support custom Icons for states
+- [x] Radio - Single option from list
+  - [x] Radio Group
+  - [x] Support custom Icons for states
+- [x] Toggle - Switch-style selection
+  - [x] With Icons
+  - [x] With Labels
+- [x] Range - Slider value selection
+  - [x] With Steps
+  - [x] With Labels
+  - [x] Range Group
+  - [x] dual thumbs for range selection
 - [ ] File Input - File upload field
   - [ ] Drag & Drop
   - [ ] Preview
@@ -42,15 +41,19 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 - [ ] Rating - Star-based rating input
   - [ ] Custom Icons
   - [ ] Half Stars
-- [ ] OTP/PIN - Pin input with varying length
-- [ ] Phone Number - With Flags and +xx + validation
+- [x] OTP/PIN - Pin input with varying length
+- [x] Phone Number - With Flags and +xx + validation
+  - [x] Flags
+  - [x] validation
 - [ ] Date and Time + Range
-  - [ ] Date Picker
+  - [x] Date Picker
   - [ ] Time Picker
-  - [ ] Date Range
+  - [x] Date Range
   - [ ] Time Range
+- [x] Password Input with Strength
 
 ### Form Structure
+
 - [ ] Form - Form wrapper with validation
   - [ ] Reset Functionality
   - [ ] Submit Handling
@@ -74,6 +77,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Navigation Components
 
 ### Primary Navigation
+
 - [ ] Navbar - Main navigation bar
   - [ ] Responsive Breakpoints
   - [ ] Sticky/Fixed Position
@@ -100,6 +104,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Items Per Page
 
 ### Secondary Navigation
+
 - [ ] Drawer - Side panel navigation
   - [ ] Multiple Positions
   - [ ] Overlay/Push Modes
@@ -113,6 +118,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 - [ ] Command Palette - Keyboard Navigation
 
 ### Content Containers
+
 - [ ] Card - Content wrapper
   - [ ] Loading State
   - [ ] With Actions
@@ -142,10 +148,10 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Arrow Indicators
   - [ ] Click/Hover Trigger
 
-
 ## Display Components
 
 ### Status & Progress
+
 - [ ] Alert - Status messages
   - [ ] Different Types (success, error, warning, info)
   - [ ] Dismissible
@@ -177,6 +183,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] With Charts
 
 ### Media & Content
+
 - [ ] Avatar - User images
   - [ ] With Status
   - [ ] Group Layout
@@ -201,6 +208,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Interactive Items
 
 ### Data Display
+
 - [ ] Table - Data grid
   - [ ] Sortable Columns
   - [ ] Filterable
@@ -225,6 +233,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Utility Components
 
 ### Interactive Utils
+
 - [ ] Countdown - Number animations
   - [ ] Different Formats
   - [ ] Custom Styling
@@ -258,6 +267,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
 ## Prebuilt Compound Components
 
 ### Authentication & User
+
 - [ ] Login
   - [ ] Social Login Options
   - [ ] Remember Me
@@ -276,6 +286,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Privacy Settings
 
 ### Layout Components
+
 - [ ] Navbar
   - [ ] Responsive Mobile Menu
   - [ ] Search Integration
@@ -294,6 +305,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] With Categories
 
 ### Common Features
+
 - [ ] Search Interface (configurable with JSON?)
   - [ ] Advanced Filters
   - [ ] Results Display
@@ -313,6 +325,7 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [ ] Rating Widget
 
 ### Content Management
+
 - [ ] Blog Post Card
   - [ ] Author Info
   - [ ] Reading Time

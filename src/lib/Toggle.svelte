@@ -85,7 +85,9 @@
 		<div
 			class={cn(
 				'clay absolute inset-0 cursor-pointer rounded-full transition-all duration-300',
-				checked ? variantClasses[variant].checked : variantClasses[variant].unchecked,
+				checked
+					? variantClasses[variant as keyof typeof variantClasses].checked
+					: variantClasses[variant as keyof typeof variantClasses].unchecked,
 				disabled ? 'cursor-not-allowed opacity-50' : ''
 			)}
 		>
