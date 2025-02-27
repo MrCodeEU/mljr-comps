@@ -47,9 +47,10 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [x] validation
 - [ ] Date and Time + Range
   - [x] Date Picker
-  - [ ] Time Picker
-  - [x] Date Range
+  - [x] Time Picker
+  - [ ] Date Range
   - [ ] Time Range
+  - [ ] TODO: Styling fix and some bugs to crush!
 - [x] Password Input with Strength
 
 ### Form Structure
