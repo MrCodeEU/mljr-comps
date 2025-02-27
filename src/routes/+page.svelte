@@ -35,7 +35,6 @@
 					<TabTrigger value="layout" variant="info">Layout & Structure</TabTrigger>
 					<TabTrigger value="overlay" variant="secondary">Overlay & Popups</TabTrigger>
 				{/snippet}
-
 				{#snippet content()}
 					<TabContent value="input" class="bg-primary/20">
 						<InputExamples />

@@ -4,7 +4,7 @@
     import { format } from 'date-fns';
     import { Input } from '$lib/input/index.js';
     import { TimePicker } from '../timePicker/index.js';
-    import type { DateTimePickerMode } from './types';
+    import type { DateTimePickerMode } from './types.js';
 
     let {
         value = $bindable(new Date()),

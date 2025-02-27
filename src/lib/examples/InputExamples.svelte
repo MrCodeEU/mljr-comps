@@ -17,6 +17,7 @@
 	import { useId } from 'bits-ui';
 	import Toggle from '$lib/Toggle.svelte';
 	import { Input, NumberInput, PhoneInput, PasswordWithStrength } from '$lib/input/index.js';
+	import { FilePicker } from '$lib/file-picker/index.js';
 
 	const fruits = [
 		{ value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
@@ -50,6 +51,20 @@
 	let singleSliderValue = 50;
 	let rangeSliderLower = 25;
 	let rangeSliderUpper = 75;
+
+	// For FilePicker demo
+	let selectedFiles: File[] = [];
+	let imageFiles: File[] = [];
+
+	// Mock file upload function with delay
+	async function simulateUpload(files: File[]): Promise<void> {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				console.log('Files uploaded:', files.map(f => f.name));
+				resolve();
+			}, 2000);
+		});
+	}
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Input & Form Components</h3>
@@ -768,11 +783,7 @@
 				</div>
 			</div>
 
-			<!-- With Icons -->
-			<div class="space-y-2"></div>
-			<h4 class="text-lg font-semibold">With Icons</h4>
-			<div class="flex flex-wrap gap-4">
-				<Select items={colors} variant="primary" icon="mdi:palette" placeholder="Select color">
+			<!-- With Icons --							<Select items={colors} variant="primary" icon="mdi:palette" placeholder="Select color">
 					<SelectContent>
 						{#each colors as color}
 							<SelectItem value={color.value} label={color.label} icon={color.icon} />
@@ -1059,6 +1070,93 @@
 					<PhoneInput disabled />
 					<PhoneInput error />
 					<PhoneInput required label="Required Phone" />
+				</div>
+			</div>
+		</CardBody>
+	</Card>
+
+	<!-- File Picker Card -->
+	<Card>
+		<CardHeader>
+			<CardTitle>File Picker</CardTitle>
+			<CardDescription>File upload component with drag & drop support and previews</CardDescription>
+		</CardHeader>
+		<CardBody class="space-y-8">
+			<!-- Basic Examples -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Basic File Picker</h4>
+				<div class="grid gap-4">
+					<FilePicker 
+						label="Single File Upload" 
+						bind:value={selectedFiles} 
+						multiple={false}
+					/>
+					<FilePicker 
+						label="Multiple Files" 
+						bind:value={selectedFiles} 
+						multiple={true}
+						maxFiles={5}
+						variant="accent"
+					/>
+				</div>
+			</div>
+
+			<!-- With File Type Filters -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">File Type Filters</h4>
+				<div class="grid gap-4">
+					<FilePicker 
+						label="Image Files Only" 
+						bind:value={imageFiles}
+						accept="image/*"
+						multiple={true}
+						variant="primary" 
+					/>
+					<FilePicker 
+						label="Documents" 
+						accept=".pdf,.doc,.docx,.txt"
+						variant="info"
+					/>
+				</div>
+			</div>
+
+			<!-- Upload Function Demo -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">With Upload Function</h4>
+				<div class="grid gap-4">
+					<FilePicker 
+						label="Upload with Progress" 
+						multiple={true}
+						maxFiles={3}
+						variant="success"
+						onUpload={simulateUpload} 
+					/>
+					<FilePicker 
+						label="Upload Images with Size Limit" 
+						accept="image/*"
+						multiple={true}
+						maxSize={1 * 1024 * 1024}
+						onUpload={simulateUpload}
+						variant="secondary"
+					/>
+				</div>
+			</div>
+
+			<!-- States -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="grid gap-4">
+					<FilePicker 
+						disabled 
+						label="Disabled File Picker" 
+						variant="muted"
+					/>
+					<FilePicker 
+						required
+						label="Required File Upload"
+						error="Please select a file"
+						variant="error" 
+					/>
 				</div>
 			</div>
 		</CardBody>

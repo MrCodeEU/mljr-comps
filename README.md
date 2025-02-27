@@ -34,10 +34,11 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [x] With Labels
   - [x] Range Group
   - [x] dual thumbs for range selection
-- [ ] File Input - File upload field
-  - [ ] Drag & Drop
-  - [ ] Preview
-  - [ ] Multiple Files
+- [x] File Input - File upload field
+  - [x] Drag & Drop
+  - [x] Preview
+  - [x] Multiple Files
+  - [x] Upload Progress
 - [ ] Rating - Star-based rating input
   - [ ] Custom Icons
   - [ ] Half Stars
