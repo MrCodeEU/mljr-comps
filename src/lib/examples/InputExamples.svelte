@@ -34,23 +34,22 @@
 		{ value: 'purple', label: 'Purple', icon: 'mdi:circle' }
 	];
 
-	let selectedDate = $state(null);	
-	let selectedFruit = $state('');
-	let selectedColors = $state<string[]>([]);
-	let selectedOption = $state('');
-	let toggleState = $state(false);
-	let toggleWifi = $state(true);
-	let toggleDarkMode = $state(false);
-	let toggleNotifications = $state(true);
-	let phoneNumber = $state('');
-	let countryCode = $state('US');
+	let selectedDate: Date | null = null;
+	let selectedFruit = '';
+	let selectedColors: string[] = [];
+	let selectedOption = '';
+	let toggleState = false;
+	let toggleWifi = true;
+	let toggleDarkMode = false;
+	let toggleNotifications = true;
+	let phoneNumber = '';
+	let countryCode = 'US';
 
-	let selectedFruitLabel = $derived(
-		fruits.find((f) => f.value === selectedFruit)?.label ?? 'Nothing selected'
-	);
-	let singleSliderValue = $state(50);
-	let rangeSliderLower = $state(25);
-	let rangeSliderUpper = $state(75);
+	$: selectedFruitLabel =
+		fruits.find((f) => f.value === selectedFruit)?.label ?? 'Nothing selected';
+	let singleSliderValue = 50;
+	let rangeSliderLower = 25;
+	let rangeSliderUpper = 75;
 </script>
 
 <h3 class="mb-6 text-xl font-bold">Input & Form Components</h3>
@@ -456,23 +455,51 @@
 	<Card>
 		<CardHeader>
 			<CardTitle>Date Field</CardTitle>
-			<CardDescription>Date and time input fields with claymorphic design</CardDescription>
+			<CardDescription>Date and time input fields with multiple selection modes</CardDescription>
 		</CardHeader>
 		<CardBody class="space-y-8">
 			<!-- Basic Examples -->
 			<div class="space-y-4">
-				<h4 class="text-lg font-semibold">Basic Date Picker</h4>
+				<h4 class="text-lg font-semibold">Basic Date Picker Modes</h4>
 				<div class="grid gap-4">
 					<DatePicker 
-						bind:value={selectedDate}
-						label="Basic date" 
+						label="Date only"
 						mode="date"
 					/>
 					<DatePicker 
-						label="With time"
-						mode="datetime"
+						label="Time only"
+						mode="time"
 						variant="accent"
+					/>
+					<DatePicker 
+						label="Date and Time"
+						mode="datetime-side"
+						variant="info"
+					/>
+				</div>
+			</div>
+
+			<!-- Time Format Options -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">Time Format Options</h4>
+				<div class="grid gap-4">
+					<DatePicker 
+						mode="time" 
+						label="24-hour format" 
+						hourFormat="24"
+						variant="primary"
+					/>
+					<DatePicker 
+						mode="time" 
+						label="12-hour format" 
 						hourFormat="12"
+						variant="secondary"
+					/>
+					<DatePicker 
+						mode="datetime-side" 
+						label="With seconds" 
+						showSeconds
+						variant="accent"
 					/>
 				</div>
 			</div>
@@ -481,92 +508,46 @@
 			<div class="space-y-4">
 				<h4 class="text-lg font-semibold">Variants</h4>
 				<div class="grid gap-4">
-					<DatePicker variant="primary" label="Primary variant" />
-					<DatePicker variant="secondary" label="Secondary variant" />
-					<DatePicker variant="accent" label="Accent variant" />
-					<DatePicker variant="muted" label="Muted variant" />
+					<DatePicker 
+						mode="datetime-split"
+						variant="primary" 
+						label="Primary variant" 
+					/>
+					<DatePicker 
+						mode="datetime-side"
+						variant="accent" 
+						label="Accent variant"
+					/>
+					<DatePicker 
+						mode="time"
+						variant="info" 
+						label="Info variant"
+					/>
 				</div>
 			</div>
 
-				<!-- Time Formats -->
-				<div class="space-y-4">
-					<h4 class="text-lg font-semibold">Time Formats</h4>
-					<div class="grid gap-4">
-						<DatePicker 
-							mode="time"
-							label="24-hour format"
-							hourFormat="24"
-						/>
-						<DatePicker 
-							mode="time"
-							label="12-hour format"
-							hourFormat="12"
-						/>
-						<DatePicker 
-							mode="datetime"
-							label="Date & Time (24h)"
-							hourFormat="24"
-						/>
-						<DatePicker 
-							mode="datetime"
-							label="Date & Time (12h)"
-							hourFormat="12"
-						/>
-					</div>
+			<!-- States -->
+			<div class="space-y-4">
+				<h4 class="text-lg font-semibold">States</h4>
+				<div class="grid gap-4">
+					<DatePicker 
+						disabled 
+						label="Disabled picker"
+						mode="datetime-side"
+					/>
+					<DatePicker 
+						required 
+						label="Required picker"
+						mode="datetime-split"
+					/>
+					<DatePicker 
+						variant="error" 
+						label="Error state" 
+						error
+						mode="date"
+					/>
 				</div>
-		
-				<!-- Time Only -->
-				<div class="space-y-4">
-					<h4 class="text-lg font-semibold">Time Only</h4>
-					<div class="grid gap-4">
-						<DatePicker 
-							mode="time"
-							label="Basic time"
-							variant="accent"
-						/>
-						<DatePicker 
-							mode="time"
-							label="With seconds"
-							variant="info"
-							showSeconds={true}
-						/>
-					</div>
-				</div>
-
-				<!-- Add this to the Card showing DatePicker examples -->
-				<div class="space-y-4">
-					<h4 class="text-lg font-semibold">Date Picker Variants</h4>
-					<div class="grid gap-4">
-						<DatePicker label="Basic Date" />
-						<DatePicker label="With Time" mode="datetime" variant="accent" />
-						<DatePicker label="Time Only" mode="time" variant="info" />
-						<DatePicker
-							label="Date Range"
-							minDate={new Date(2024, 0, 1)}
-							maxDate={new Date(2024, 11, 31)}
-							variant="success"
-						/>
-					</div>
-				</div>
-
-				<div class="space-y-4">
-					<h4 class="text-lg font-semibold">Time Format Options</h4>
-					<div class="grid gap-4">
-						<DatePicker mode="time" label="24-hour format" hourFormat="24" />
-						<DatePicker mode="time" label="12-hour format" hourFormat="12" />
-						<DatePicker mode="time" label="With seconds" showSeconds variant="accent" />
-					</div>
-				</div>
-
-				<div class="space-y-4">
-					<h4 class="text-lg font-semibold">States</h4>
-					<div class="grid gap-4">
-						<DatePicker disabled label="Disabled picker" />
-						<DatePicker required label="Required picker" Message="This field is required" />
-						<DatePicker variant="error" label="Error state" error />
-					</div>
-				</div>
-		
+			</div>
 		</CardBody>
 	</Card>
 

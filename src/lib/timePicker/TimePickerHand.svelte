@@ -1,14 +1,16 @@
 <script lang="ts">
-    import { cx, cy } from './util';
-    import { cn } from '$lib/utility.js';
+    let {
+        className = '',
+        i = 0,
+        div = 12,
+        length = 40,
+        r = 9,
+        step = 0
+    } = $props();
 
-    let className = $state('');
-    let i = $state(0);
-    let div = $state(12);
-    let length = $state(40);
-    let r = $state(9);
-    let step = $state(0);
     let betweenDiv = $derived(step && i % step !== 0);
+    import { cx, cy } from './util.js';
+    import { cn } from '$lib/utility.js';
 </script>
 
 <svelte:options namespace="svg" />

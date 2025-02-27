@@ -1,9 +1,11 @@
-export const markerIndex2Rad = (markerIndex: number, div: number) => 
-  (-markerIndex / (div / 2)) * Math.PI + Math.PI;
+export function cx(i: number, r: number, div = 12): number {
+    return Math.sin((Math.PI * 2 * i) / div) * r;
+}
 
-const sico = (fn: (x: number) => number) =>
-  (markerIndex: number, r: number, div = 12) => 
-    r * fn(markerIndex2Rad(markerIndex, div));
+export function cy(i: number, r: number, div = 12): number {
+    return -Math.cos((Math.PI * 2 * i) / div) * r;
+}
 
-export const cx = sico(Math.sin);
-export const cy = sico(Math.cos);
+export function markerIndex2Rad(i: number, div = 12): number {
+    return (Math.PI * 2 * i) / div;
+}

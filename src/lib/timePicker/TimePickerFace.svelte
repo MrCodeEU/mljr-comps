@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { cx, cy } from './util';
+	import { cx, cy } from './util.js';
 	import { cn } from '$lib/utility.js';
-
-	let { class: className = '', r = 40, markers = [] } = $props<{
-		class?: string;
-		r?: number;
-		markers?: number[];
-	}>();
+    let {
+        class: className = '',
+        r = 40,
+        markers = []
+    } : {
+        class?: string;
+        r?: number;
+        markers?: number[];
+	 } = $props();
 </script>
 
 <svelte:options namespace="svg" />
