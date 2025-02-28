@@ -18,6 +18,7 @@
 	import Toggle from '$lib/Toggle.svelte';
 	import { Input, NumberInput, PhoneInput, PasswordWithStrength } from '$lib/input/index.js';
 	import { FilePicker } from '$lib/file-picker/index.js';
+	import RatingExamples from './components/RatingExamples.svelte';
 
 	const fruits = [
 		{ value: 'apple', label: 'Apple', icon: 'mdi:food-apple' },
@@ -1161,4 +1162,9 @@
 			</div>
 		</CardBody>
 	</Card>
+
+	<div>
+		<RatingExamples />
+	</div>
+
 </Masonry>

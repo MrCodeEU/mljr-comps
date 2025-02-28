@@ -39,9 +39,10 @@ A collection of Svelte components based on DaisyUI, organized for easy reference
   - [x] Preview
   - [x] Multiple Files
   - [x] Upload Progress
-- [ ] Rating - Star-based rating input
-  - [ ] Custom Icons
-  - [ ] Half Stars
+- [x] Rating - Star-based rating input
+  - [x] Custom Icons
+  - [x] Half Stars
+  - [x] Readonly/Display Mode
 - [x] OTP/PIN - Pin input with varying length
 - [x] Phone Number - With Flags and +xx + validation
   - [x] Flags
